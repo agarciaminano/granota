@@ -102,6 +102,7 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Pantalla.cpp" />
     <ClCompile Include="Principal.cpp" />
+    <ClCompile Include="Puntuacio.cpp" />
     <ClCompile Include="Temporitzador.cpp" />
     <ClCompile Include="Vehicle.cpp" />
   </ItemGroup>
@@ -129,6 +130,7 @@
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Pantalla.h" />
+    <ClInclude Include="Puntuacio.h" />
     <ClInclude Include="Temporitzador.h" />
     <ClInclude Include="Vehicle.h" />
   </ItemGroup>

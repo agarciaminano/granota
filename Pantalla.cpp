@@ -8,6 +8,9 @@
  */
 Pantalla::Pantalla()
 {
+
+	m_numeros = Puntuacio();
+
 	creaGrafics();
 	creaCoves();
 	// Inicialitzem l'area total de la pantalla, així com l'espai pels carrils, el número de carrils i instanciem els objectes granota i cova.
@@ -186,7 +189,7 @@ bool Pantalla::espaiPermesVehicles(Area area)
 /**
 * Mètode que dibuixa tots els elements de la pantalla: fons, coves, cotxes, gespa, granota.
 */
-void Pantalla::dibuixa()
+void Pantalla::dibuixa(int puntuacio)
 {
 	// TODO emplenar
 	m_graficFons.dibuixa(m_areaTotal.getMinX(), m_areaTotal.getMinY());
@@ -198,6 +201,7 @@ void Pantalla::dibuixa()
 	for (int i = 0; i <= m_granotaActual;i++)
 		m_granota[i].dibuixa();
 
+	m_numeros.dibuixa(puntuacio);
 	
 		
 }

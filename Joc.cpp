@@ -19,6 +19,7 @@ int juga(int nivell)
 	bool jocGuanyat = false;
 	bool esDins;
 	bool tempsAcabat ;
+	int puntuacio = 0;
 	Pantalla pantalla = Pantalla();
 	// Mostrem la finestra
 	Video_ShowWindow();
@@ -47,7 +48,7 @@ int juga(int nivell)
 					tempo.inicialitza();
 
 				}
-				pantalla.dibuixa();
+				pantalla.dibuixa(puntuacio);
 				tempo.pintaTemps();
 			
 				pantalla.pintaVides(vides);
@@ -69,6 +70,7 @@ int juga(int nivell)
 				{
 					pantalla.mouGranota(AMUNT);
 					esDins = pantalla.esGranotaDinsCova();
+					if (esDins) puntuacio += 25;
 
 				}
 
@@ -83,12 +85,16 @@ int juga(int nivell)
 				
 
 			} while ((!Keyboard_GetKeyTrg(KEYBOARD_ESCAPE)) && (!estat.bExit) && (!pantalla.haMortLaGranota()) && (!tempsAcabat)&& (esDins==false));
-
+			
 
 
 		} while (vides > 0 && !pantalla.nivellSuperat() && !Keyboard_GetKeyTrg(KEYBOARD_ESCAPE) && (!estat.bExit));
 		if (pantalla.nivellSuperat())
+		{
 			nivell++;
+			puntuacio += 100;
+		}
+		
 		jocGuanyat = (nivell == 4);
 	} while (vides > 0 && !jocGuanyat && !Keyboard_GetKeyTrg(KEYBOARD_ESCAPE) && (!estat.bExit));
 	

@@ -1,11 +1,11 @@
 #pragma once
 #include "Area.h"
-
 #include "Cova.h"
 #include "Vehicle.h"
 #include "Carril.h"
 #include "Granota.h"
 #include "lib\Grafic.h"
+#include "Puntuacio.h"
 // Inici del taulell respecte la cantonada superior esquerre
 #define INICI_X 0
 #define INICI_Y 0
@@ -32,7 +32,7 @@ public:
 	~Pantalla();
 	void inicialitzacioNivell(int nivell);
 	void inicialitzacioGranota();
-	void dibuixa();
+	void dibuixa(int puntuacio);
 	void mouGranota(int direccio);
 	bool esGranotaDinsCova();
 	bool esGranotaDinsCoves();
@@ -43,18 +43,30 @@ public:
 	void pintaVides(int vides);
 	int getGranotaActual() const;
 private:
-	Grafic m_graficFons;
-	Grafic m_graficCova;
-	Grafic m_graficsGranota[MAX_ESTATS][MAX_GRAFICS];
-	Grafic m_graficVehicle[5];
+	//Elements de fons
 	Area m_areaTotal;
+	Grafic m_graficFons;
+	
+	//Coves
+	Grafic m_graficCova;
 	Cova m_cova[MAX_COVES];
+	
+	//Granotes
+	Grafic m_graficsGranota[MAX_ESTATS][MAX_GRAFICS];
 	Granota m_granota[MAX_COVES];
 	Granota m_vides[MAX_VIDES];
 	int m_granotaActual;
+	
+
+	Puntuacio m_numeros;
+
+	//Vehicles
+	Grafic m_graficVehicle[5];
 	Carril m_carrils[MAX_CARRILS];
 	int m_iniciCarrilsY;
 	int m_nCarrils;
+
+	/**METODES PRIVATS**/
 	int triaCarril();
 	bool espaiPermes(Area area);
 	bool espaiPermesVehicles(Area area);
