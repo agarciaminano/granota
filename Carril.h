@@ -1,4 +1,5 @@
 #include "Vehicle.h"
+#include "Cua.h"
 const bool CARRIL_ESQUERRA = 0;
 const bool CARRIL_DRET = 1;
 
@@ -12,12 +13,13 @@ class Carril
 		int m_delay;
 		bool m_orientation;
 		int m_posY;
-		Vehicle m_vehicle;
+		Cua m_vehicles;
 		int m_cont;
+		
 
 	public:
 		Carril();
-		Carril(int delay, bool orientacio, Vehicle vehicle, int posY);
+		Carril(int delay, bool orientacio, Grafic vehicle, int posY);
 		~Carril();
 		Vehicle getVehicle();
 		bool getOrientation();

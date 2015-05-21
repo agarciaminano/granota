@@ -87,6 +87,7 @@
     <ClCompile Include="Cua.cpp" />
     <ClCompile Include="GestioResultats.cpp" />
     <ClCompile Include="Granota.cpp" />
+    <ClCompile Include="Iterador.cpp" />
     <ClCompile Include="Joc.cpp" />
     <ClCompile Include="lib\animaciones.cpp" />
     <ClCompile Include="lib\debug.cpp" />
@@ -100,6 +101,7 @@
     <ClCompile Include="lib\stb_vorbis.c" />
     <ClCompile Include="lib\video.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="Pantalla.cpp" />
     <ClCompile Include="Principal.cpp" />
     <ClCompile Include="Temporitzador.cpp" />
@@ -112,6 +114,7 @@
     <ClInclude Include="Cua.h" />
     <ClInclude Include="GestioResultats.h" />
     <ClInclude Include="Granota.h" />
+    <ClInclude Include="Iterador.h" />
     <ClInclude Include="Joc.h" />
     <ClInclude Include="lib\animaciones.h" />
     <ClInclude Include="lib\debug.h" />

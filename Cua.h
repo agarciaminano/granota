@@ -1,5 +1,6 @@
 #include "Vehicle.h"
-#include "Node.h"
+
+#include "Iterador.h"
 class Cua
 {
 private:
@@ -13,4 +14,5 @@ public:
 	Vehicle& getPrimer() const;
 	Vehicle& getUltim() const;
 	bool esBuida() const;
+	Iterador getInici() const;
 };

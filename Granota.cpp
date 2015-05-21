@@ -61,7 +61,7 @@ void Granota::mouEsquerra()
 	
 		// Movem la granota cap a l'esquerra
 	if (m_estat == ESTAT_REPOS) {
-		m_posicioX -= DESPLACAMENT_GRANOTA;
+		m_posicioX -= DESPLACAMENT_GRANOTA*2/10;
 		m_graficNum = 3;
 		m_estat = ESTAT_MOVIMENT;
 	}
@@ -94,7 +94,7 @@ void Granota::mouAmunt()
 	
 		// Movem la granota cap a l'esquerra
 	if (m_estat == ESTAT_REPOS) {
-		m_posicioY -= DESPLACAMENT_GRANOTA;
+		m_posicioY -= DESPLACAMENT_GRANOTA*2/10;
 		m_graficNum = 0;
 		m_estat = ESTAT_MOVIMENT;
 	}
@@ -129,9 +129,16 @@ void Granota::estatDefecte() {
 }
 
 void Granota::actualitzaEstat() {
-	m_durada--;
-	if (m_durada == 0){
-		m_estat = ESTAT_REPOS;
-		m_durada = DURADA_MOVIMENT;
+	if (m_estat == ESTAT_MOVIMENT)
+	{
+		m_durada--;
+		if (m_durada == 0){
+			if (m_graficNum == 0)
+				m_posicioY -= DESPLACAMENT_GRANOTA * 8 / 10;
+			else if (m_graficNum == 3)
+				m_posicioX -= DESPLACAMENT_GRANOTA * 8 / 10;
+			m_estat = ESTAT_REPOS;
+			m_durada = DURADA_MOVIMENT;
+	}
 	}
 }

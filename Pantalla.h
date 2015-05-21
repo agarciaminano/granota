@@ -2,7 +2,6 @@
 #include "Area.h"
 
 #include "Cova.h"
-#include "Vehicle.h"
 #include "Carril.h"
 #include "Granota.h"
 #include "lib\Grafic.h"

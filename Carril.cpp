@@ -3,19 +3,23 @@
 Carril::Carril() {}
 	
 
-Carril::Carril(int delay, bool orientacio, Vehicle vehicle, int posY){
+Carril::Carril(int delay, bool orientacio, Grafic vehicle, int posY){
 	
 	m_delay = delay;
 	m_cont = delay;
 	m_posY = posY;
 	m_orientation = orientacio;
-	m_vehicle = vehicle;
+	Vehicle v = Vehicle(vehicle, DESPLACAMENT_COTXE);
 	
-
+	m_vehicles = Cua();
+	m_vehicles.afegeix(v);
+	
 
 }
 
-Carril::~Carril(){}
+Carril::~Carril()
+{
+}
 	
 bool Carril::getOrientation() {
 	return m_orientation;
@@ -27,12 +31,17 @@ int Carril::getY() {
 
 void Carril::mouIniciCarril(int fi_pantalla) 
 {
+	
+	Vehicle v = m_vehicles.treu();
 	m_cont = m_delay;
 	if (m_orientation == CARRIL_DRET)
-		m_vehicle.mou(fi_pantalla,m_posY);
-	else
-		m_vehicle.mou(0 - (m_vehicle.getAreaOcupada().getMaxX() - m_vehicle.getAreaOcupada().getMinX()), m_posY);
-}
+		v.mou(fi_pantalla,m_posY);
+	else{
+		
+			v.mou(0 - (v.getAreaOcupada().getMaxX() - v.getAreaOcupada().getMinX()), m_posY);
+	}
+	m_vehicles.afegeix(v);
+	}
 
 void Carril::actualitzaEstat() {
 	m_cont--;
@@ -50,9 +59,9 @@ bool Carril::potCircular(){
 	return pot;
 }
 void Carril::mouVehicle() {
-	m_vehicle.mou(!m_orientation);
+	m_vehicles.getPrimer().mou(!m_orientation);
 }
 Vehicle Carril::getVehicle()
 {
-	return m_vehicle;
+	return m_vehicles.getPrimer();
 }

@@ -21,8 +21,19 @@ Vehicle& Cua::getUltim() const
 
 Cua::~Cua()
 {
-	while (!esBuida())
-		treu();
+	
+}
+Vehicle Cua::treu() 
+{ 
+	Node* aux; 
+	Vehicle valor; 
+	aux = m_primer; 
+	if (m_primer == m_ultim)
+		m_ultim = NULL;
+	valor = aux->getValor();
+	m_primer = aux->getNext();
+	delete aux; 
+	return valor; 
 }
 
 bool Cua::afegeix(Vehicle valor)
@@ -42,4 +53,9 @@ bool Cua::afegeix(Vehicle valor)
 		m_ultim = aux;
 	}
 	return correcte;
+}
+
+Iterador Cua::getInici() const
+{
+	return Iterador(m_primer);
 }

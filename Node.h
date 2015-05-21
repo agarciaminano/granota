@@ -2,6 +2,8 @@
 class Node
 {
 public:
+	Node();
+	~Node();
 	Vehicle& getValor();
 	Node* getNext();
 	void setValor(Vehicle valor);

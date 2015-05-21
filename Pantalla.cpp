@@ -65,8 +65,9 @@ void Pantalla::inicialitzacioNivell(int nivell)
 {
 	m_granotaActual = 0;
 	for (int i = 0; i < MAX_CARRILS; i++) {
+		Carril c = Carril(i * 15 + 30, i % 2, m_graficVehicle[i], m_iniciCarrilsY + i * 60);
 		m_cova[i].setOcupada(false);
-		m_carrils[i] = Carril(i*15 + 30, i % 2, Vehicle(m_graficVehicle[i], DESPLACAMENT_COTXE*nivell) , m_iniciCarrilsY + i * 60);
+		m_carrils[i] = c;
 		if (m_carrils[i].getOrientation() == CARRIL_DRET)
 				m_carrils[i].mouIniciCarril(FI_X );
 		else
