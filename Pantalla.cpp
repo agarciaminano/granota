@@ -29,8 +29,11 @@ Pantalla::~Pantalla()
 {
 	m_graficFons.destrueix();
 	m_graficCova.destrueix();
-	for (int i = 0; i < MAX_CARRILS;i++)
+	for (int i = 0; i < MAX_CARRILS; i++)
+	{
 		m_graficVehicle[i].destrueix();
+		m_carrils[i].destrueixCua();
+	}
 	for (int i = 0; i < MAX_ESTATS; i++)
 		for (int j = 0; j < MAX_GRAFICS; j++)
 			m_graficsGranota[i][j].destrueix();
@@ -65,9 +68,8 @@ void Pantalla::inicialitzacioNivell(int nivell)
 {
 	m_granotaActual = 0;
 	for (int i = 0; i < MAX_CARRILS; i++) {
-		Carril c = Carril(i * 15 + 30, i % 2, m_graficVehicle[i], m_iniciCarrilsY + i * 60);
 		m_cova[i].setOcupada(false);
-		m_carrils[i] = c;
+		m_carrils[i] = Carril(i * 15 + 30, i % 2, m_graficVehicle[i], m_iniciCarrilsY + i * 60);
 		if (m_carrils[i].getOrientation() == CARRIL_DRET)
 				m_carrils[i].mouIniciCarril(FI_X );
 		else

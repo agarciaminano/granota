@@ -32,17 +32,22 @@ int Carril::getY() {
 void Carril::mouIniciCarril(int fi_pantalla) 
 {
 	
-	Vehicle v = m_vehicles.treu();
+	Iterador it = m_vehicles.getInici();
+	
 	m_cont = m_delay;
 	if (m_orientation == CARRIL_DRET)
-		v.mou(fi_pantalla,m_posY);
+		it.getElement().mou(fi_pantalla, m_posY);
 	else{
 		
-			v.mou(0 - (v.getAreaOcupada().getMaxX() - v.getAreaOcupada().getMinX()), m_posY);
+		it.getElement().mou(0 - (it.getElement().getAreaOcupada().getMaxX() - it.getElement().getAreaOcupada().getMinX()), m_posY);
 	}
-	m_vehicles.afegeix(v);
+	
 	}
 
+void Carril::destrueixCua() {
+	while (!m_vehicles.esBuida())
+		m_vehicles.treu();
+}
 void Carril::actualitzaEstat() {
 	m_cont--;
 	

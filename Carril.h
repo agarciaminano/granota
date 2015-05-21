@@ -24,6 +24,7 @@ class Carril
 		Vehicle getVehicle();
 		bool getOrientation();
 		int getY();
+		void destrueixCua();
 		void mouIniciCarril(int fi_pantalla);
 		void actualitzaEstat();
 		bool potCircular();
