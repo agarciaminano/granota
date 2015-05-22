@@ -87,6 +87,9 @@
     <ClCompile Include="Temporitzador.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Puntuacio.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Cua.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -167,10 +170,13 @@
     <ClInclude Include="Temporitzador.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Cua.h">
+    <ClInclude Include="Node.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Node.h">
+    <ClInclude Include="Puntuacio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Cua.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Iterador.h">
