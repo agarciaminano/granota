@@ -1,34 +1,36 @@
 #include "Vehicle.h"
 #include "Cua.h"
+#include "Aleatori.h"
 const bool CARRIL_ESQUERRA = 0;
 const bool CARRIL_DRET = 1;
-
+// Carril necessita coneixer el final de la pantalla
+const int FINAL_PANTALLAX = 600;
 class Carril 
 {
 	
 	
-	enum TIPUS_VEHICLE{COTXE_1, COTXE_2, COTXE_3, COTXE_4, COTXE_5};
 	
 	private:
-		int m_delay;
 		bool m_orientation;
 		int m_posY;
 		Cua m_vehicles;
-		int m_cont;
-		
+		int m_freqAparicio;
+		Aleatori m_generador;
+		void mouIniciCarril(Vehicle& v);
+		Grafic m_tipusVehicle;
 
 	public:
 		Carril();
-		Carril(int delay, bool orientacio, Grafic vehicle, int posY);
+		Carril(bool orientacio, Grafic vehicle, int posY);
 		~Carril();
-		Vehicle getVehicle();
+		Cua getVehicle();
 		bool getOrientation();
 		int getY();
 		void destrueixCua();
-		void mouIniciCarril(int fi_pantalla);
 		void actualitzaEstat();
 		bool potCircular();
 		void mouVehicle();
 		void dibuixaVehicle();
+		void haArribatAlFinal();
 		
 };

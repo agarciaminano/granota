@@ -81,6 +81,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Aleatori.cpp" />
     <ClCompile Include="Area.cpp" />
     <ClCompile Include="Carril.cpp" />
     <ClCompile Include="Cova.cpp" />
@@ -109,6 +110,7 @@
     <ClCompile Include="Vehicle.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Aleatori.h" />
     <ClInclude Include="Area.h" />
     <ClInclude Include="Carril.h" />
     <ClInclude Include="Cova.h" />

@@ -5,6 +5,7 @@
 #include "Granota.h"
 #include "lib\Grafic.h"
 #include "Puntuacio.h"
+
 // Inici del taulell respecte la cantonada superior esquerre
 #define INICI_X 0
 #define INICI_Y 0

@@ -99,6 +99,9 @@
     <ClCompile Include="Node.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Aleatori.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\animaciones.h">
@@ -180,6 +183,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Iterador.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Aleatori.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -10,7 +10,7 @@ Pantalla::Pantalla()
 {
 
 	m_numeros = Puntuacio();
-
+	
 	creaGrafics();
 	creaCoves();
 	// Inicialitzem l'area total de la pantalla, així com l'espai pels carrils, el número de carrils i instanciem els objectes granota i cova.
@@ -72,11 +72,8 @@ void Pantalla::inicialitzacioNivell(int nivell)
 	m_granotaActual = 0;
 	for (int i = 0; i < MAX_CARRILS; i++) {
 		m_cova[i].setOcupada(false);
-		m_carrils[i] = Carril(i * 15 + 30, i % 2, m_graficVehicle[i], m_iniciCarrilsY + i * 60);
-		if (m_carrils[i].getOrientation() == CARRIL_DRET)
-				m_carrils[i].mouIniciCarril(FI_X );
-		else
-			m_carrils[i].mouIniciCarril(INICI_X);
+		m_carrils[i] = Carril(i % 2, m_graficVehicle[i], m_iniciCarrilsY + i * 60);
+	
 			
 	}
 	
@@ -198,7 +195,13 @@ void Pantalla::dibuixa(int puntuacio)
 	m_graficFons.dibuixa(m_areaTotal.getMinX(), m_areaTotal.getMinY());
 	for (int i = 0; i < MAX_CARRILS; i++)
 	{
-		m_carrils[i].getVehicle().dibuixa();
+		Cua cua = m_carrils[i].getVehicle();
+		Iterador it = cua.getInici();
+		while (!it.esNul())
+		{
+			it.getElement().dibuixa();
+			it.seguent();
+		}
 		m_cova[i].dibuixa();
 	}
 	for (int i = 0; i <= m_granotaActual;i++)
@@ -223,20 +226,21 @@ void Pantalla::mouVehicle()
 {
 	
 	for (int i = 0; i < MAX_CARRILS; i++) {
-		if (m_carrils[i].potCircular())
-		{
-			if (espaiPermesVehicles(m_carrils[i].getVehicle().getAreaOcupada()))
+	
+		
 				m_carrils[i].mouVehicle();
-			else
-				m_carrils[i].mouIniciCarril(FI_X);
+				Cua cua = m_carrils[i].getVehicle();
 				
-		}
-		else {
+				if (!espaiPermesVehicles(cua.getPrimer().getAreaOcupada()))
+					m_carrils[i].haArribatAlFinal();
+				
+	
+		
 			m_carrils[i].actualitzaEstat();
 			
 			
 						
-		}
+		
 	}
 }
 
@@ -249,10 +253,15 @@ bool Pantalla::haMortLaGranota()
 	bool colisio = false;
 	Area areaGranota = m_granota[m_granotaActual].getAreaOcupada();
 	for (int i = 0; i < MAX_CARRILS; i++) {
-		Area areaVehicle = m_carrils[i].getVehicle().getAreaOcupada();
-
-		if (areaGranota.solapa(areaVehicle))
-			colisio = true;
+		Cua cua = m_carrils[i].getVehicle();
+		Iterador it = cua.getInici();
+		while (!it.esNul())
+		{
+			Area areaVehicle = it.getElement().getAreaOcupada();
+			if (areaGranota.solapa(areaVehicle))
+				colisio = true;
+			it.seguent();
+		}
 	}
 	return colisio; // TODO modificar
 }
@@ -271,6 +280,7 @@ bool Pantalla::nivellSuperat(){
 */
 void Pantalla::actualitza(){
 	m_granota[m_granotaActual].actualitzaEstat();
+	
 }
 
 /**

@@ -3,18 +3,27 @@
 Carril::Carril() {}
 	
 
-Carril::Carril(int delay, bool orientacio, Grafic vehicle, int posY){
+Carril::Carril(bool orientacio, Grafic vehicle, int posY){
 	
-	m_delay = delay;
-	m_cont = delay;
+	
+	
 	m_posY = posY;
 	m_orientation = orientacio;
+	m_tipusVehicle = vehicle;
 	Vehicle v = Vehicle(vehicle, DESPLACAMENT_COTXE);
-	
+	m_generador = Aleatori();
+	m_freqAparicio = 750;
 	m_vehicles = Cua();
+	
+	if (orientacio == CARRIL_ESQUERRA)
+	{
+		mouIniciCarril(v);
+	}
+	else
+		mouIniciCarril(v);
+	
 	m_vehicles.afegeix(v);
 	
-
 }
 
 Carril::~Carril()
@@ -29,44 +38,66 @@ int Carril::getY() {
 	return m_posY;
 }
 
-void Carril::mouIniciCarril(int fi_pantalla) 
+void Carril::haArribatAlFinal()
 {
+	Vehicle v = m_vehicles.treu();
 	
-	Iterador it = m_vehicles.getInici();
 	
-	m_cont = m_delay;
-	if (m_orientation == CARRIL_DRET)
-		it.getElement().mou(fi_pantalla, m_posY);
-	else{
-		
-		it.getElement().mou(0 - (it.getElement().getAreaOcupada().getMaxX() - it.getElement().getAreaOcupada().getMinX()), m_posY);
+	if (m_vehicles.esBuida()){
+		mouIniciCarril (v);
+		m_vehicles.afegeix(v);
+	
 	}
+}
+void Carril::mouIniciCarril(Vehicle& v) 
+{
+	if (m_orientation == CARRIL_DRET)
+		v.mou(FINAL_PANTALLAX, m_posY);
+	else
+		{
+		v.mou(0 - (v.getAreaOcupada().getMaxX() - v.getAreaOcupada().getMinX()), m_posY);
+		}
 	
 	}
 
 void Carril::destrueixCua() {
-	while (!m_vehicles.esBuida())
+	while (!m_vehicles.esBuida()){
 		m_vehicles.treu();
+		
+	}
 }
 void Carril::actualitzaEstat() {
-	m_cont--;
+
+		// si el num aleatori ha estat 0
+		if (m_generador.generaAleatori(0, m_freqAparicio) == 0)
+		{
+			Vehicle v = Vehicle(m_tipusVehicle, DESPLACAMENT_COTXE);
+			
+
+				mouIniciCarril(v);
+			if (!(v.getAreaOcupada().solapa(m_vehicles.getUltim().getAreaOcupada())))
+			{
+				m_vehicles.afegeix(v);
+			
+			}
+			
+		}
+
 	
 }
 
-bool Carril::potCircular(){
-	bool pot;
-	if (m_cont == 0)
-	{
-		pot = true;
-		
-	}
-	else pot = false;
-	return pot;
-}
+
 void Carril::mouVehicle() {
-	m_vehicles.getPrimer().mou(!m_orientation);
+	Iterador it = m_vehicles.getInici();
+	while (!it.esNul())
+	{
+		it.getElement().mou(!m_orientation);
+		it.seguent();
+	}
 }
-Vehicle Carril::getVehicle()
+Cua Carril::getVehicle()
 {
-	return m_vehicles.getPrimer();
+	
+	return m_vehicles;
 }
+

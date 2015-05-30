@@ -5,8 +5,8 @@
 
 #include <conio.h>      /* getch */ 
 #include <stdio.h>      /* printf */
-#include <stdlib.h>
-#include <time.h>
+
+
 #include "lib\event.h"
 #include "lib\libreria.h"
 #include "lib\Grafic.h"
