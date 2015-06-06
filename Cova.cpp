@@ -33,7 +33,7 @@ Cova::Cova(Grafic grafic, int posicioX, int posicioY)
 	m_paretEsquerra=Area(m_posicioX,m_posicioX+MAX_X_PARET_COVA,m_posicioY, m_posicioY + m_grafic.getScaleY());
 	
 	m_interior = Area(m_paretEsquerra.getMaxX(), m_posicioX+(m_grafic.getScaleX()-MAX_X_PARET_COVA), MIN_Y_INTERIOR_COVA, m_posicioY + m_grafic.getScaleY());
-	m_paretDreta=Area(m_interior.getMaxX(),m_grafic.getScaleX(),m_posicioY,m_posicioY+m_grafic.getScaleY());
+	m_paretDreta=Area(m_interior.getMaxX(),m_interior.getMaxX()+MAX_X_PARET_COVA,m_posicioY,m_posicioY+m_grafic.getScaleY());
 }
 
 /**

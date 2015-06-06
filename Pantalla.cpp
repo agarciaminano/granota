@@ -120,7 +120,7 @@ void Pantalla::creaCoves()
 	for (int i = 0; i < MAX_COVES; i++)
 	{
 		m_cova[i] = Cova(m_graficCova, posicio_X_Inici, INICI_Y);
-		posicio_X_Inici += m_cova[i].getParetDreta().getMaxX();
+		posicio_X_Inici = m_cova[i].getParetDreta().getMaxX();
 		m_granota[i] = Granota(m_graficsGranota, (FI_X - INICI_X - m_graficsGranota[0][0].getScaleX()) / 2, INICI_Y_GRANOTA);
 	}
 }
@@ -147,9 +147,12 @@ bool Pantalla::esGranotaDinsCova()
 		esDins = m_cova[i].esDins(m_granota[m_granotaActual].getAreaOcupada());
 		i++;
 	}
+	i--;
 	if (esDins) {
-		m_cova[i - 1].setOcupada(true);
+		m_cova[i].setOcupada(true);
 		m_granota[m_granotaActual].estatDefecte();
+		m_granota[m_granotaActual].mouPosAbs((m_cova[i].getParetEsquerra().getMinX() + m_cova[i].getParetDreta().getMaxX()) / 2 - 20,
+			( m_cova[i].getParetDreta().getMaxY()) / 2-10);
 		m_granotaActual++;
 	}
 	
@@ -241,23 +244,14 @@ void Pantalla::pintaVides(int vides)
 void Pantalla::mouVehicle()
 {
 	
-	for (int i = 0; i < MAX_CARRILS; i++) {
-	
-		
-				m_carrils[i].mouVehicle();
-				Cua cua = m_carrils[i].getVehicle();
-				
-				if (!espaiPermesVehicles(cua.getPrimer().getAreaOcupada()))
-					m_carrils[i].haArribatAlFinal();
-				
-	
-		
+	for (int i = 0; i < MAX_CARRILS; i++)
+		{
+		m_carrils[i].mouVehicle();
+		Cua cua = m_carrils[i].getVehicle();
+			if (!espaiPermesVehicles(cua.getPrimer().getAreaOcupada()))
+				m_carrils[i].haArribatAlFinal();
 			m_carrils[i].actualitzaEstat();
-			
-			
-						
-		
-	}
+		}
 }
 
 /**
@@ -283,7 +277,7 @@ bool Pantalla::haMortLaGranota()
 	bool tempsAcabat = m_tempo.haAcabatElTemps();
 	if (tempsAcabat)
 		m_tempo.inicialitza();
-	return colisio|| tempsAcabat; // TODO modificar
+	return colisio = false|| tempsAcabat; // TODO modificar
 }
 
 /**
@@ -313,67 +307,55 @@ void Pantalla::mouGranota(int direccio)
 	
 	int x_min,x_max,y_min,y_max;
 	Area novaArea;
-		switch (direccio)
-		{
-		case AMUNT:{
-			
-			x_min = m_granota[m_granotaActual].getAreaOcupada().getMinX();
-			x_max = m_granota[m_granotaActual].getAreaOcupada().getMaxX();
-			y_min = m_granota[m_granotaActual].getAreaOcupada().getMinY() - DESPLACAMENT_GRANOTA;
-			y_max = m_granota[m_granotaActual].getAreaOcupada().getMaxY() - DESPLACAMENT_GRANOTA;
-			novaArea = Area(x_min, x_max, y_min, y_max); 
-			if (espaiPermes(novaArea))
-				m_granota[m_granotaActual].mouAmunt();
-			break;
-		}
+	switch (direccio)
+	{
+	case AMUNT:{
 
-		case DRETA: {
-			/*
-			x = m_granota.getAreaOcupada().getMaxX();
-			y = m_granota.getAreaOcupada().getMaxY();
-			novaArea = Area(x, x + DESPLACAMENT_GRANOTA,y,y);
-			*/
-			x_min = m_granota[m_granotaActual].getAreaOcupada().getMinX() + DESPLACAMENT_GRANOTA;
-			x_max = m_granota[m_granotaActual].getAreaOcupada().getMaxX() + DESPLACAMENT_GRANOTA;
-			y_min = m_granota[m_granotaActual].getAreaOcupada().getMinY();
-			y_max = m_granota[m_granotaActual].getAreaOcupada().getMaxY();
-			novaArea = Area(x_min, x_max,y_min,y_max);
-			if (espaiPermes(novaArea))
-				m_granota[m_granotaActual].mouDreta();
-			break;
-		}
-		case ESQUERRA:{
-			/*
-			 x = m_granota.getAreaOcupada().getMinX();
-			 y = m_granota.getAreaOcupada().getMaxY();
-			 novaArea = Area(x-DESPLACAMENT_GRANOTA, x , y, y);
-			*/
-			x_min = m_granota[m_granotaActual].getAreaOcupada().getMinX() - DESPLACAMENT_GRANOTA;
-			x_max = m_granota[m_granotaActual].getAreaOcupada().getMaxX() - DESPLACAMENT_GRANOTA;
-			y_min = m_granota[m_granotaActual].getAreaOcupada().getMinY();
-			y_max = m_granota[m_granotaActual].getAreaOcupada().getMaxY();
-			novaArea = Area(x_min, x_max, y_min, y_max);
-			if (espaiPermes(novaArea))
-				m_granota[m_granotaActual].mouEsquerra();
-			break;
-		}
-		case AVALL:{
-			/*
-			x = m_granota.getAreaOcupada().getMinX();
-			y = m_granota.getAreaOcupada().getMaxY();
-			novaArea = Area(x , x, y, y + DESPLACAMENT_GRANOTA);
-			*/
-			x_min = m_granota[m_granotaActual].getAreaOcupada().getMinX();
-			x_max = m_granota[m_granotaActual].getAreaOcupada().getMaxX();
-			y_min = m_granota[m_granotaActual].getAreaOcupada().getMinY() + DESPLACAMENT_GRANOTA;
-			y_max = m_granota[m_granotaActual].getAreaOcupada().getMaxY() + DESPLACAMENT_GRANOTA;
-			novaArea = Area(x_min, x_max, y_min, y_max);
-			if (espaiPermes(novaArea))
-				m_granota[m_granotaActual].mouAvall();
-		}
-		default:
-			break;
-		}
+		x_min = m_granota[m_granotaActual].getAreaOcupada().getMinX();
+		x_max = m_granota[m_granotaActual].getAreaOcupada().getMaxX();
+		y_min = m_granota[m_granotaActual].getAreaOcupada().getMinY() - DESPLACAMENT_GRANOTA;
+		y_max = m_granota[m_granotaActual].getAreaOcupada().getMaxY() - DESPLACAMENT_GRANOTA;
+		novaArea = Area(x_min, x_max, y_min, y_max);
+		if (espaiPermes(novaArea))
+			m_granota[m_granotaActual].mouAmunt();
+		break;
+	}
+
+	case DRETA: {
+	
+		x_min = m_granota[m_granotaActual].getAreaOcupada().getMinX() + DESPLACAMENT_GRANOTA;
+		x_max = m_granota[m_granotaActual].getAreaOcupada().getMaxX() + DESPLACAMENT_GRANOTA;
+		y_min = m_granota[m_granotaActual].getAreaOcupada().getMinY();
+		y_max = m_granota[m_granotaActual].getAreaOcupada().getMaxY();
+		novaArea = Area(x_min, x_max, y_min, y_max);
+		if (espaiPermes(novaArea))
+			m_granota[m_granotaActual].mouDreta();
+		break;
+	}
+	case ESQUERRA:{
+		
+		x_min = m_granota[m_granotaActual].getAreaOcupada().getMinX() - DESPLACAMENT_GRANOTA;
+		x_max = m_granota[m_granotaActual].getAreaOcupada().getMaxX() - DESPLACAMENT_GRANOTA;
+		y_min = m_granota[m_granotaActual].getAreaOcupada().getMinY();
+		y_max = m_granota[m_granotaActual].getAreaOcupada().getMaxY();
+		novaArea = Area(x_min, x_max, y_min, y_max);
+		if (espaiPermes(novaArea))
+			m_granota[m_granotaActual].mouEsquerra();
+		break;
+	}
+	case AVALL:{
+		
+		x_min = m_granota[m_granotaActual].getAreaOcupada().getMinX();
+		x_max = m_granota[m_granotaActual].getAreaOcupada().getMaxX();
+		y_min = m_granota[m_granotaActual].getAreaOcupada().getMinY() + DESPLACAMENT_GRANOTA;
+		y_max = m_granota[m_granotaActual].getAreaOcupada().getMaxY() + DESPLACAMENT_GRANOTA;
+		novaArea = Area(x_min, x_max, y_min, y_max);
+		if (espaiPermes(novaArea))
+			m_granota[m_granotaActual].mouAvall();
+	}
+	default:
+		break;
+	}
 	}
 
 

@@ -113,6 +113,11 @@ void Granota::mouAvall()
 
 }
 
+void Granota::mouPosAbs(int x, int y){
+	m_posicioX = x;
+	m_posicioY = y;
+}
+
 /**
  * Mou la granota a la seva posició inicial.
  */
