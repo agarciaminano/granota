@@ -78,9 +78,6 @@
     <ClCompile Include="Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GestioResultats.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Carril.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -100,6 +97,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Aleatori.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ranking.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Jugador.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics_Console.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -164,9 +170,6 @@
     <ClInclude Include="Menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GestioResultats.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Carril.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -186,6 +189,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Aleatori.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ranking.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Jugador.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics_Console.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

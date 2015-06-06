@@ -100,5 +100,5 @@ int juga(int nivell)
 	
 
 	Video_Release(); // Allibera els recursos
-	return 0;
+	return puntuacio;
 }
