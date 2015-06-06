@@ -1,6 +1,6 @@
 #include "Menu.h"
 #include "Joc.h"
-#include "GestioResultats.h"
+#include "Ranking.h"
 
 #define OPCIO_JUGAR '1'
 #define OPCIO_CONFIGURAR '2'
@@ -18,8 +18,9 @@ int main()
 	int punts;
 	int posicio = -1;
 	char nivell = '1';
-	TipusJugador millorsJugadors[MAX_MILLORSJUGADORS];
-	iniciaTaulaMillorJugadors(millorsJugadors);
+	Ranking ranking = Ranking();
+	Jugador nouJugador;
+	int filaGotoXY=9;
 
 	do
 	{
@@ -28,14 +29,13 @@ int main()
 		switch (opcio)
 		{
 			case OPCIO_JUGAR:
+			
 				punts = juga(nivell-'0'); // COMPTE!: aquí hi ha una conversió de char a int
-				posicio = haMilloratPuntuacio(millorsJugadors, punts);
-				if (posicio >= 0) // Ha millorat puntuacio
-				{
-					system("cls"); // Neteja la consola
-					desplacaArray(millorsJugadors, posicio);
-					emplenaPosicioArray(millorsJugadors[posicio], punts);
-				}
+				nouJugador = Jugador(punts);
+				if (ranking.afegirJugador(nouJugador))
+					cout << "\n Enhorabona!!! Has entrat al ranking dels " << MAX_JUGADORS << "millors jugadors!!\n";
+				else
+					cout << "\n Llàstima! No has pogut entrar al ranking dels " << MAX_JUGADORS << "millors jugadors. \n";
 				break;
 			case OPCIO_CONFIGURAR:
 				do
@@ -44,17 +44,18 @@ int main()
 					nivell = _getch(); // Llegeix tecla apretada
 					if ((nivell != '1') && (nivell != '2') && (nivell != '3')) // Comprova si tecla es valida
 					{
-						printf("Opcio incorrecta.\n"); // Mostra text
+						cout << "Opcio incorrecta.\n"; // Mostra text
 						
 					}
 				} while ((nivell != '1') && (nivell != '2') && (nivell != '3')); // Repeteix mentre tecla no valida
 				break;
 			case OPCIO_PUNTUACIO:
-				escriuRanking(millorsJugadors);
-				printf("Prem una tecla per tornar al menu principal");
+				ranking.mostrar();
+				cout << "Prem una tecla per tornar al menu principal";
 				_getch(); // Llegeix tecla apretada
 				break;
 		}
 	} while (opcio != OPCIO_SORTIR);
+	
 	return 1;
 }
