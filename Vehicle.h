@@ -3,7 +3,9 @@
 #include "lib\Grafic.h"
 
 // nº de píxels que es desplaça el cotxe a cada moviment del nivell 1
-#define DESPLACAMENT_COTXE 2
+const int VELOCITAT_CAMIO = 1;
+const int VELOCITAT_COTXES = 2;
+const int VELOCITAT_F1 = 3;
 
 class Vehicle
 {

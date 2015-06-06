@@ -5,14 +5,15 @@
 #include "Granota.h"
 #include "lib\Grafic.h"
 #include "Puntuacio.h"
+#include "Temporitzador.h"
 
 // Inici del taulell respecte la cantonada superior esquerre
-#define INICI_X 0
-#define INICI_Y 0
+const int INICI_X = 0;
+const int INICI_Y = 0;
 
 // Fi del taulell respecte la cantonada superior esquerre
-#define FI_X 600
-#define FI_Y 450
+const int FI_X = 600;
+const int FI_Y = 450;
 const int INICI_Y_GRANOTA = FI_Y - 55;
 const int MAX_CARRILS = 5;
 const int MAX_COVES = 5;
@@ -20,10 +21,12 @@ const int MAX_VIDES = 3;
 const int INICI_Y_VIDES = FI_Y + 30;
 const int INICI_X_VIDES = 30;
 
-#define AMUNT 0
-#define AVALL 1
-#define DRETA 2
-#define ESQUERRA 3
+
+
+const int AMUNT = 0;
+const int AVALL = 1;
+const int DRETA = 2;
+const int ESQUERRA = 3;
 
 class Pantalla
 {
@@ -46,6 +49,7 @@ private:
 	//Elements de fons
 	Area m_areaTotal;
 	Grafic m_graficFons;
+	Grafic m_graficTemp[MAX_TEMP];
 	
 	//Coves
 	Grafic m_graficCova;
@@ -56,12 +60,12 @@ private:
 	Granota m_granota[MAX_COVES];
 	Granota m_vides[MAX_VIDES];
 	int m_granotaActual;
-	
+	Temporitzador m_tempo;
 
 	Puntuacio m_numeros;
 
 	//Vehicles
-	Grafic m_graficVehicle[5];
+	Grafic m_graficVehicle[MAX_CARRILS];
 	Carril m_carrils[MAX_CARRILS];
 	int m_iniciCarrilsY;
 	int m_nCarrils;

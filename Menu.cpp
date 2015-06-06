@@ -5,7 +5,7 @@
  */
 void mostraMenuPrincipal()
 {
-	system("cls");
+	
 
 	printf("------ Menu Principal ------ \n");
 	printf("\n");
@@ -23,7 +23,7 @@ void mostraMenuPrincipal()
  */
 void mostraMenuNivellDificultat()
 {
-	system("cls");
+	
 
 	printf("------ Menu Dificultat ------\n");
 	printf("\n");

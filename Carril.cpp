@@ -3,16 +3,17 @@
 Carril::Carril() {}
 	
 
-Carril::Carril(bool orientacio, Grafic vehicle, int posY){
-	
-	
+Carril::Carril(bool orientacio, Grafic vehicle, int posY,int vel_carril,int nivell)
+{
 	
 	m_posY = posY;
 	m_orientation = orientacio;
 	m_tipusVehicle = vehicle;
-	Vehicle v = Vehicle(vehicle, DESPLACAMENT_COTXE);
+	m_velocitat = vel_carril;
+	m_nivell = nivell;
+	Vehicle v = Vehicle(vehicle, vel_carril * nivell);
 	m_generador = Aleatori();
-	m_freqAparicio = 750;
+	m_freqAparicio = 1000 - 250*(nivell);
 	m_vehicles = Cua();
 	
 	if (orientacio == CARRIL_ESQUERRA)
@@ -71,10 +72,8 @@ void Carril::actualitzaEstat() {
 		// si el num aleatori ha estat 0
 		if (m_generador.generaAleatori(0, m_freqAparicio) == 0)
 		{
-			Vehicle v = Vehicle(m_tipusVehicle, DESPLACAMENT_COTXE);
-			
-
-				mouIniciCarril(v);
+			Vehicle v = Vehicle(m_tipusVehicle, m_velocitat * m_nivell);
+			mouIniciCarril(v);
 			if (!(v.getAreaOcupada().solapa(m_vehicles.getUltim().getAreaOcupada())))
 			{
 				m_vehicles.afegeix(v);

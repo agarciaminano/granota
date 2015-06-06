@@ -10,7 +10,7 @@
 #include "lib\event.h"
 #include "lib\libreria.h"
 #include "lib\Grafic.h"
-#include "Temporitzador.h"
+
 
 //#include "lib\libreria.h"
 //#include "lib\event.h"

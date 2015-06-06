@@ -15,13 +15,15 @@ class Carril
 		int m_posY;
 		Cua m_vehicles;
 		int m_freqAparicio;
+		int m_velocitat;
+		int m_nivell;
 		Aleatori m_generador;
 		void mouIniciCarril(Vehicle& v);
 		Grafic m_tipusVehicle;
 
 	public:
 		Carril();
-		Carril(bool orientacio, Grafic vehicle, int posY);
+		Carril(bool orientacio, Grafic vehicle, int posY,int vel_carril, int nivell);
 		~Carril();
 		Cua getVehicle();
 		bool getOrientation();

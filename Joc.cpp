@@ -15,10 +15,9 @@ int juga(int nivell)
 	// Inicialitzacions necessàries
 	InitGame(estat);
 	srand((unsigned)time(NULL));
-	Temporitzador tempo = Temporitzador();
+	
 	bool jocGuanyat = false;
 	bool esDins;
-	bool tempsAcabat ;
 	int puntuacio = 0;
 	Pantalla pantalla = Pantalla();
 	// Mostrem la finestra
@@ -27,12 +26,12 @@ int juga(int nivell)
 	//Bucle per determinar si s'ha guanyat el joc o has perdut o has tancat la finestra.
 	do {
 		pantalla.inicialitzacioNivell(nivell);
-		tempo.inicialitza();
+		
 		//Bucle per ficar les 5 granotes a les coves o si et maten
 		do
 		{
 			esDins = false;
-			tempsAcabat = false;
+			bool haMort = false;
 			
 			pantalla.inicialitzacioGranota();
 			
@@ -42,15 +41,8 @@ int juga(int nivell)
 
 
 				ProcessEvents(estat); // Captura els events que s'han produit en el darrer cicle
-				if (tempo.haAcabatElTemps()){
-					tempsAcabat = true;
-					vides--;
-					tempo.inicialitza();
-
-				}
 				pantalla.dibuixa(puntuacio);
-				tempo.pintaTemps();
-			
+						
 				pantalla.pintaVides(vides);
 				pantalla.actualitza();
 				pantalla.mouVehicle();
@@ -80,11 +72,13 @@ int juga(int nivell)
 				}
 
 				if (pantalla.haMortLaGranota())
+				{
 					vides--;
-				
+					haMort = true;
+				}
 				
 
-			} while ((!Keyboard_GetKeyTrg(KEYBOARD_ESCAPE)) && (!estat.bExit) && (!pantalla.haMortLaGranota()) && (!tempsAcabat)&& (esDins==false));
+			} while ((!Keyboard_GetKeyTrg(KEYBOARD_ESCAPE)) && (!estat.bExit) && !(haMort) && (esDins==false));
 			
 
 
@@ -100,5 +94,6 @@ int juga(int nivell)
 	
 
 	Video_Release(); // Allibera els recursos
+	
 	return 0;
 }

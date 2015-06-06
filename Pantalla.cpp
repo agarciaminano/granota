@@ -4,15 +4,13 @@
 
 /**
  * Constructor de la Pantalla.
- * Aquesta pantalla té una sola cova imaginària ja que no té parets.
  */
 Pantalla::Pantalla()
 {
-
 	m_numeros = Puntuacio();
-	
 	creaGrafics();
 	creaCoves();
+	
 	// Inicialitzem l'area total de la pantalla, així com l'espai pels carrils, el número de carrils i instanciem els objectes granota i cova.
 	m_areaTotal = Area(INICI_X, FI_X, INICI_Y, FI_Y);
 	m_iniciCarrilsY = INICI_Y + m_graficCova.getScaleY();
@@ -40,7 +38,8 @@ Pantalla::~Pantalla()
 	for (int i = 0; i < MAX_ESTATS; i++)
 		for (int j = 0; j < MAX_GRAFICS; j++)
 			m_graficsGranota[i][j].destrueix();
-	
+	for (int i = 0; i < MAX_TEMP; i++)
+		m_graficTemp[i].destrueix();
 }
 /**
 * Crea els components gràfics que es faràn servir durant el joc
@@ -62,6 +61,16 @@ void Pantalla::creaGrafics() {
 	m_graficsGranota[1][2].crea("Program/data/GraficsGranota/Granota_Avall_2.png");
 	m_graficsGranota[0][3].crea("Program/data/GraficsGranota/Granota_Esquerra_1.png");
 	m_graficsGranota[1][3].crea("Program/data/GraficsGranota/Granota_Esquerra_2.png");
+	m_graficTemp[0].crea("Program/data/numeros/numero0000.png");
+	m_graficTemp[1].crea("Program/data/numeros/numero0001.png");
+	m_graficTemp[2].crea("Program/data/numeros/numero0002.png");
+	m_graficTemp[3].crea("Program/data/numeros/numero0003.png");
+	m_graficTemp[4].crea("Program/data/numeros/numero0004.png");
+	m_graficTemp[5].crea("Program/data/numeros/numero0005.png");
+	m_graficTemp[6].crea("Program/data/numeros/numero0006.png");
+	m_graficTemp[7].crea("Program/data/numeros/numero0007.png");
+	m_graficTemp[8].crea("Program/data/numeros/numero0008.png");
+	m_graficTemp[9].crea("Program/data/numeros/numero0009.png");
 }
 /**
  * Inicia la pantalla instanciant l'objecte vehicle i colocant la granota i el vehicle a la posició inicial.
@@ -70,9 +79,18 @@ void Pantalla::creaGrafics() {
 void Pantalla::inicialitzacioNivell(int nivell)
 {
 	m_granotaActual = 0;
+	
+	m_tempo = Temporitzador(m_graficTemp, 7 - nivell, 0);
 	for (int i = 0; i < MAX_CARRILS; i++) {
+		int velocitat;
+		if (i == 3)
+			velocitat = VELOCITAT_CAMIO;
+		else if (i == 1)
+			velocitat = VELOCITAT_F1;
+		else 
+			velocitat = VELOCITAT_COTXES;
 		m_cova[i].setOcupada(false);
-		m_carrils[i] = Carril(i % 2, m_graficVehicle[i], m_iniciCarrilsY + i * 60);
+		m_carrils[i] = Carril(i % 2, m_graficVehicle[i], m_iniciCarrilsY + i * 60, velocitat,nivell);
 	
 			
 	}
@@ -129,8 +147,6 @@ bool Pantalla::esGranotaDinsCova()
 		esDins = m_cova[i].esDins(m_granota[m_granotaActual].getAreaOcupada());
 		i++;
 	}
-
-	
 	if (esDins) {
 		m_cova[i - 1].setOcupada(true);
 		m_granota[m_granotaActual].estatDefecte();
@@ -262,8 +278,12 @@ bool Pantalla::haMortLaGranota()
 				colisio = true;
 			it.seguent();
 		}
+	
 	}
-	return colisio; // TODO modificar
+	bool tempsAcabat = m_tempo.haAcabatElTemps();
+	if (tempsAcabat)
+		m_tempo.inicialitza();
+	return colisio|| tempsAcabat; // TODO modificar
 }
 
 /**
@@ -279,6 +299,7 @@ bool Pantalla::nivellSuperat(){
 * @return void.
 */
 void Pantalla::actualitza(){
+	m_tempo.pintaTemps();
 	m_granota[m_granotaActual].actualitzaEstat();
 	
 }
