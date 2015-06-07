@@ -3,7 +3,7 @@
 #include "lib\Grafic.h"
 
 // nº de píxels que es desplaça la granota a cada moviment
-const int DESPLACAMENT_GRANOTA = 15;
+const int DESPLACAMENT_GRANOTA = 14;
 const int MAX_GRAFICS = 4;
 const int MAX_ESTATS = 2;
 const int DURADA_MOVIMENT = 3;

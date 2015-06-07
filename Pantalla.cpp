@@ -15,7 +15,7 @@ Pantalla::Pantalla()
 	// Inicialitzem l'area total de la pantalla, així com l'espai pels carrils, el número de carrils i instanciem els objectes granota i cova.
 	m_areaTotal = Area(INICI_X, FI_X, INICI_Y, FI_Y);
 	m_iniciCarrilsY = INICI_Y + m_graficCova.getScaleY();
-	
+	m_bonusPunts = false;
 	for (int i = 0; i < MAX_VIDES; i++) {
 		m_vides[i] = Granota(m_graficsGranota, INICI_X_VIDES + (m_graficsGranota[0][0].getScaleX()*i), INICI_Y_VIDES);
 	}
@@ -83,13 +83,13 @@ void Pantalla::inicialitzacioNivell(int nivell)
 {
 	m_granotaActual = 0;
 	
-	m_tempo = Temporitzador(m_graficTemp, 7 - nivell, 0);
+	m_tempo = Temporitzador(m_graficTemp, 7 - nivell, 0); // 60,50 y 40 segons pels nivells 1 2 i 3 respectivament.
 	m_tempoSorpresa = Temporitzador(m_graficTemp, 2 , 0);
 	for (int i = 0; i < MAX_CARRILS; i++) {
 		int velocitat;
-		if (i == 3)
+		if (i == CARRIL_3)
 			velocitat = VELOCITAT_CAMIO;
-		else if (i == 1)
+		else if (i == CARRIL_1)
 			velocitat = VELOCITAT_F1;
 		else 
 			velocitat = VELOCITAT_COTXES;
@@ -235,8 +235,8 @@ void Pantalla::dibuixa(int puntuacio)
 	if (m_tempoSorpresa.haAcabatElTemps())
 	{
 		
-		m_bonus.setX(m_generador.generaAleatori(INICI_X + 10, FI_X));
-		m_bonus.setY(m_generador.generaAleatori(m_iniciCarrilsY, FI_Y));
+		m_bonus.setX(m_generador.generaAleatori(INICI_X + 10, FI_X-m_graficSorpresa.getScaleX()));
+		m_bonus.setY(m_generador.generaAleatori(m_iniciCarrilsY, FI_Y_CARRILS));
 		m_tempoSorpresa.inicialitza();
 	}
 		
@@ -276,11 +276,11 @@ bool Pantalla::haMortLaGranota()
 	for (int i = 0; i < MAX_CARRILS; i++) {
 		Cua cua = m_carrils[i].getVehicle();
 		Iterador it = cua.getInici();
-		while (!it.esNul())
+		while (!it.esNul() && !colisio)
 		{
 			Area areaVehicle = it.getElement().getAreaOcupada();
-			if (areaGranota.solapa(areaVehicle))
-				colisio = true;
+			colisio = comprovaColisio(areaGranota, areaVehicle);
+				
 			it.seguent();
 		}
 	
@@ -301,6 +301,7 @@ bool Pantalla::nivellSuperat(){
 
 /**
 * Mètode que actualitza els moviments referents a la granota: estat de repos i moviment.
+* També actualitza el temporitzador i comprova si la granota ha colisionat amb l'objecte bonus
 * @return void.
 */
 void Pantalla::actualitza(){
@@ -308,9 +309,29 @@ void Pantalla::actualitza(){
 	m_tempo.actualitzaTemps();
 	m_tempoSorpresa.actualitzaTemps();
 	m_granota[m_granotaActual].actualitzaEstat();
+	if (comprovaColisio(m_granota[m_granotaActual].getAreaOcupada(), m_bonus.getAreaOcupada()))
+		colisioBonus();
 	
 }
 
+bool Pantalla::comprovaColisio(Area a1, Area a2)
+{
+	return a1.solapa(a2);
+}
+
+void Pantalla::colisioBonus() {
+	m_bonusPunts = true;
+	m_bonus.setX(0);
+	m_bonus.setY(0);
+}
+
+bool Pantalla::getBonusPunts() {
+	return m_bonusPunts;
+}
+
+void Pantalla::setBonusPunts() {
+	m_bonusPunts = false;
+}
 /**
  * Mou la granota en la direcció donada.
  * @param direccio Direcció cap on s'ha de moure la granota. Fer servir constants AMUNT, AVALL, DRETA i ESQUERRA.

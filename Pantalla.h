@@ -16,6 +16,7 @@ const int INICI_Y = 0;
 const int FI_X = 600;
 const int FI_Y = 450;
 const int INICI_Y_GRANOTA = FI_Y - 55;
+const int FI_Y_CARRILS = FI_Y - 100;
 const int MAX_CARRILS = 5;
 const int MAX_COVES = 5;
 const int MAX_VIDES = 3;
@@ -45,6 +46,8 @@ public:
 	bool nivellSuperat();
 	void actualitza();
 	void pintaVides(int vides);
+	bool getBonusPunts();
+	void setBonusPunts();
 	int getGranotaActual() const;
 private:
 	//Elements de fons
@@ -55,6 +58,8 @@ private:
 	//Coves
 	Grafic m_graficCova;
 	Cova m_cova[MAX_COVES];
+	bool m_bonusPunts;
+
 	
 	//Granotes
 	Grafic m_graficsGranota[MAX_ESTATS][MAX_GRAFICS];
@@ -81,6 +86,8 @@ private:
 	void creaGrafics();
 	void creaCarrils();
 	void creaCoves();
+	bool comprovaColisio(Area a1, Area a2);
+	void colisioBonus();
 	
 	
 };

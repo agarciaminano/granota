@@ -149,10 +149,7 @@ bool Ranking::carregarRanking()
 	fitxer.open(RUTA_FITXER);
 	if (fitxer.is_open())
 	{
-		//Comprovem que el fitxer no estigui buit.
-		//fitxer.seekg(0, ios::end);
-		//if (fitxer.tellg() > 0) 
-		//{
+	
 			fitxer >> nomJugador >> puntuacioText;
 			int puntuacio;
 			int i = 0;

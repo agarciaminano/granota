@@ -9,13 +9,11 @@
  */
 int juga(int nivell)
 {
-	
 	t_programStatus estat;
 	int vides = MAX_VIDES;
 	// Inicialitzacions necessàries
 	InitGame(estat);
-	srand((unsigned)time(NULL));
-	
+	srand((unsigned)time(NULL));	
 	bool jocGuanyat = false;
 	bool esDins;
 	int puntuacio = 0;
@@ -38,11 +36,8 @@ int juga(int nivell)
 			//Bucle per ficar 1 granota a 1 cova).
 			do
 			{
-
-
 				ProcessEvents(estat); // Captura els events que s'han produit en el darrer cicle
-				pantalla.dibuixa(puntuacio);
-						
+				pantalla.dibuixa(puntuacio);			
 				pantalla.pintaVides(vides);
 				pantalla.actualitza();
 				pantalla.mouVehicle();
@@ -76,7 +71,11 @@ int juga(int nivell)
 					vides--;
 					haMort = true;
 				}
-				
+				if (pantalla.getBonusPunts())
+				{
+					puntuacio += 10;
+					pantalla.setBonusPunts();
+				}
 
 			} while ((!Keyboard_GetKeyTrg(KEYBOARD_ESCAPE)) && (!estat.bExit) && !(haMort) && (esDins==false));
 			
@@ -95,5 +94,5 @@ int juga(int nivell)
 
 	Video_Release(); // Allibera els recursos
 	
-	return 0;
+	return puntuacio;
 }

@@ -8,9 +8,10 @@ public:
 	void setX(int x);
 	void setY(int y);
 	void dibuixa();
+	Area getAreaOcupada();
 private:
 	int m_posX;
-	int m_posy;
+	int m_posY;
 	Grafic m_grafic;
 
 };

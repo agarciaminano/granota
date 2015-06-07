@@ -5,12 +5,20 @@ const bool CARRIL_ESQUERRA = 0;
 const bool CARRIL_DRET = 1;
 // Carril necessita coneixer el final de la pantalla
 const int FINAL_PANTALLAX = 600;
+const int FREQ_APARICIO = 1000;
+const int MULT_APARICIO = 250;
+const int CARRIL_1 = 1;
+const int CARRIL_2 = 2;
+const int CARRIL_3 = 3;
+const int CARRIL_4 = 4;
+const int CARRIL_5 = 5;
 class Carril 
 {
 	
 	
 	
 	private:
+		
 		bool m_orientation;
 		int m_posY;
 		Cua m_vehicles;

@@ -13,7 +13,7 @@ Carril::Carril(bool orientacio, Grafic vehicle, int posY,int vel_carril,int nive
 	m_nivell = nivell;
 	Vehicle v = Vehicle(vehicle, vel_carril * nivell);
 	m_generador = Aleatori();
-	m_freqAparicio = 1000 - 250*(nivell);
+	m_freqAparicio = FREQ_APARICIO - MULT_APARICIO*(nivell);
 	m_vehicles = Cua();
 	mouIniciCarril(v);
 	m_vehicles.afegeix(v);
