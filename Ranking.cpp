@@ -63,86 +63,8 @@ void Ranking::mostrar() const
 /*******************METODES PRIVATS*******************************/
 
 
-/***
-* Comprova si la tecla introduida està permesa(per descartar els caràcters que no ens interessin).
-* @param char tecla Li passem la tecla a verificar.
-* @return bool Si es valida o no.
-*/
-bool Ranking::teclaValida(char tecla) {
-	bool valida = false;
-	// Es comprova primer les lletres minuscules, ja que són més frequents.
-	if ((tecla >= INICI_MINUS) && (tecla <= FI_MINUS)){
-		valida = true;
-	}
-	else if
-		((tecla >= INICI_MAYUS && (tecla <= FI_MAYUS))){
-		valida = true;
-	}
-	else if (tecla == ESPAI){
-		valida = true;
-	}
-
-	return valida;
-}
 
 
-/***
-* Funció que ens permet llegir el nom d'un jugador, i controlar tot els esdeveniments de teclat.
-* @param int filaGotoXY Coordenada vertical per colocar el scanner a la pantalla.
-* @return string retorna la cadena completa.
-*/
-string Ranking::llegirNom() {
-	char tecla;
-	int i = 0;
-	string nom;
-	HANDLE pantalla = GetStdHandle(STD_OUTPUT_HANDLE);
-	CONSOLE_SCREEN_BUFFER_INFO SBInfo;
-
-	do {
-		//Llegim la tecla pulsada
-		tecla = _getch();
-		//Si la tecla es valida i no hem arribat al final de la cadena,
-		//la incluim en el nostre array y la pintem per pantalla.
-		if ((teclaValida(tecla)) && (i < MAX_LONG_NOM - 1)){
-			nom.push_back(tecla);
-			cout << tecla;
-			i++;
-		}
-
-		else if (tecla == BACKSPACE){
-			//Si borrem una lletra, hem de tornar enrere a l'array i,a més
-			//ens hem de situar en la posició anterior per pantalla per poder
-			//mostrar-li a l'usuari que la lletra ha estat esborrada.
-			if (i > 0){
-
-				/*i--;
-				GotoXY(i, 1, pantalla);
-				printf(" ");
-				GotoXY(i, 1, pantalla);*/
-				i--;
-				//Agafem la posicio actual del cursor.
-				GetConsoleScreenBufferInfo(pantalla, &SBInfo);
-				//Ens posicionem a la fila y columna de la consola.
-				GotoXY(i, SBInfo.dwCursorPosition.Y, pantalla);
-				
-				printf(" ");
-				GotoXY(i, SBInfo.dwCursorPosition.Y, pantalla);
-				//Treu un caracter
-				nom.pop_back();
-
-			}
-
-		}
-		//Intro per acabar.
-	} while (tecla != INTRO || i < MIN_LONG_NOM);
-	//Emplenem els espais buits amb caràcters en blanc per alinear tots els noms
-	for (i; i < MAX_LONG_NOM - 1; i++) {
-		nom.push_back(' ');
-	}
-	/*	//Indiquem el final de cadena.
-	frase[i] = '\0';*/
-	return nom;
-}
 
 
 int Ranking::castPuntuacio(string puntuacioText)
@@ -303,8 +225,8 @@ void Ranking::desplacaArray(int posicio)
 void Ranking::emplenaPosicioArray(int posicio, Jugador jugadorNou)
 {
 	cout << "\n\n\nIntrodueix el teu nom: ";
-
-	string nouNom = llegirNom();
+	string nouNom;
+	cin >> nouNom;
 	jugadorNou.setNom(nouNom);
 	m_taula[posicio] = jugadorNou;
 

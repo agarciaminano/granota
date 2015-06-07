@@ -36,8 +36,6 @@ private:
 	Jugador m_taula[MAX_JUGADORS];
 	
 	/*Metodes privats*/
-	string llegirNom();
-	bool teclaValida(char tecla);
 	int castPuntuacio(string puntuacioText);
 	string castPuntuacio(int puntuacio);
 	
@@ -51,10 +49,9 @@ private:
 	void desplacaArray(int posicio);
 	void emplenaPosicioArray(int posicio,Jugador jugadorNou);
 
-	/**************************************************/
 
 	
-
+	////////////////////////////////////////////////////////////
 
 
 
