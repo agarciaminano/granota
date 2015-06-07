@@ -1,6 +1,5 @@
 #include <fstream>
 #include <conio.h>
-#include "Graphics_Console.h"
 #include "Jugador.h";
 
 
