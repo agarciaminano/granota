@@ -61,6 +61,7 @@ private:
 	Grafic m_graficFons;
 	Grafic m_graficTemp[MAX_TEMP];
 	Grafic m_graficSorpresa;
+
 	//Coves
 	Grafic m_graficCova;
 	Cova m_cova[MAX_COVES];
@@ -76,7 +77,7 @@ private:
 	Temporitzador m_tempo[MAX_TEMPOS];
 	Aleatori m_generador;
 
-	Puntuacio m_numeros;
+	Puntuacio m_puntuacio;
 
 	//Vehicles
 	Grafic m_graficVehicle[MAX_CARRILS];

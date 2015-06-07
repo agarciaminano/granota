@@ -57,7 +57,7 @@ int juga(int nivell)
 				{
 					pantalla.mouGranota(AMUNT);
 					esDins = pantalla.esGranotaDinsCova();
-					if (esDins) puntuacio += 25;
+					if (esDins) puntuacio += PUNTS_GRANOTA_ES_DINS_COVA;
 
 				}
 
@@ -73,7 +73,7 @@ int juga(int nivell)
 				}
 				if (pantalla.getBonusPunts())
 				{
-					puntuacio += 10;
+					puntuacio += PUNTS_BONUS;
 					pantalla.setBonusPunts();
 				}
 				if (pantalla.getBonusVides() && vides < 3)
@@ -90,7 +90,7 @@ int juga(int nivell)
 		if (pantalla.nivellSuperat())
 		{
 			nivell++;
-			puntuacio += 100;
+			puntuacio += PUNTS_NIVELL;
 		}
 		
 		jocGuanyat = (nivell == 4);

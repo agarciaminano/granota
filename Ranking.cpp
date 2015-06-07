@@ -7,6 +7,8 @@
 Ranking::Ranking()
 {
 	//cout << "\n Creacio del ranking. \n";
+
+	//Si no carrega el ranking del fitxer, inicialitzem l'array.
 	if (!carregarRanking())
 		inicialitza();
 	
@@ -31,17 +33,25 @@ Ranking::~Ranking()
 bool Ranking::afegirJugador(Jugador nouJugador)
 {
 	bool afegit = false;
-
+	//Mirem si el jugador passat per parametre te millor puntuacio que els que hi ha al ranking.
+	//Retorna -1 si no ha millorat, i si ha millorat, la posicio on l'hem de col·locar.
 	int posicio = haMilloratPuntuacio(nouJugador.getPuntuacio());
+	
 	if (posicio >= 0) // Ha millorat puntuacio
 	{
+		//Tirem cap avall tots els jugadors "pitjors" que el nou.
 		desplacaArray(posicio);
+		//Fiquem el nou jugador.
 		emplenaPosicioArray(posicio, nouJugador);
 		afegit = true;
 	}
 	return afegit;
 }
 
+/**
+* Metode que mostra per pantalla tots els jugadors amb la seva puntuacio corresponent.
+* @return void 
+*/
 void Ranking::mostrar() const
 {
 	cout << "\n\n";
@@ -49,12 +59,7 @@ void Ranking::mostrar() const
 	cout << "\n    Nom                           Puntuacio\n";
 	cout << "\n------------                    -----------\n";
 	for (int i = 0; i < MAX_JUGADORS; i++)
-	{
-		//cout << "\n-------------------------------------------\n";
-		cout << "\n"<< i+1 << ".- " << m_taula[i].getNom() << "                             " << m_taula[i].getPuntuacio() << "\n";
-		//cout << "\n-------------------------------------------\n";\n
-
-	}
+	  cout << "\n"<< i+1 << ".- " << m_taula[i].getNom() << "\t\t\t\t\t" << m_taula[i].getPuntuacio() << "\n";
 	cout << "\n\n";
 }
 
@@ -65,7 +70,12 @@ void Ranking::mostrar() const
 
 
 
-
+/** 
+* Metode que serveix per agafar les puntuacions dels fitxers i passar-les a enters, 
+* per poder fer les comprovacions pertinents.
+* @param string puntuacioText cadena de caracters que es troben al fitxer ranking.txt.
+* @return int Puntuacio en forma numerica.
+*/
 
 int Ranking::castPuntuacio(string puntuacioText)
 {
@@ -80,6 +90,10 @@ int Ranking::castPuntuacio(string puntuacioText)
 	return puntuacioNumerica;
 }
 
+/** Metode que serveix guardar la puntuacio al fitxer en el format de 3 digits.
+* @param int puntuacioText puntuacio numerica que rep del joc.
+* @return int Puntuacio en format NNN.
+*/
 string Ranking::castPuntuacio(int puntuacio)
 {
 	string puntuacioText;
@@ -137,7 +151,7 @@ void Ranking::guardarRanking()
 
 /***
 * Funcio que a partir d'un fitxer, carrega els jugadors, els prepara per ficar-los a la taula i posteriorment els fica.
-*
+* @return bool Si s'ha carregat o si no.
 */
 bool Ranking::carregarRanking()
 {
@@ -162,8 +176,6 @@ bool Ranking::carregarRanking()
 				i++;
 			}
 			carregat = true;
-		//}
-		
 		
 	}
 	else
@@ -176,8 +188,9 @@ bool Ranking::carregarRanking()
 	
 }
 
-/***
-*
+/**
+* Metode que inicialitza tots els jugadors del ranking.
+* 
 */
 void Ranking::inicialitza()
 {
@@ -199,6 +212,7 @@ int Ranking::haMilloratPuntuacio(Jugador nouJugador)
 	int posicio = -1;
 	do
 	{
+		//Comparem el nou jugador amb cadascun de la taula del ranking.
 		if (m_taula[i].getPuntuacio() < nouJugador.getPuntuacio())
 			posicio = i - 1;
 		i++;
@@ -219,6 +233,13 @@ void Ranking::desplacaArray(int posicio)
 		m_taula[i] = m_taula[i - 1];
 }
 
+
+/**
+* Metode que introdueix un jugador a la posicio pasada per parametre.
+* @param int posicio
+* @param Jugador jugadorNou
+* @return void
+*/
 void Ranking::emplenaPosicioArray(int posicio, Jugador jugadorNou)
 {
 	cout << "\n\n\nIntrodueix el teu nom: ";

@@ -7,8 +7,8 @@
  */
 Pantalla::Pantalla()
 {
-	m_numeros = Puntuacio();
 	creaGrafics();
+	m_puntuacio = Puntuacio(m_graficTemp);
 	creaCoves();
 	m_generador = Aleatori();
 	m_bonus = Bonus(m_graficSorpresa);
@@ -225,7 +225,7 @@ void Pantalla::dibuixa(int puntuacio)
 	for (int i = 0; i <= m_granotaActual;i++)
 		m_granota[i].dibuixa();
 
-	m_numeros.dibuixa(puntuacio);
+	m_puntuacio.dibuixa(puntuacio);
 	m_bonus.dibuixa();
 	if (m_tempo[TEMP_SORPRESA].haAcabatElTemps())  //// Si el temps del temporitzador pel bonus a acabat
 	{
