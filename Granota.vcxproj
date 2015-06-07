@@ -88,7 +88,6 @@
     <ClCompile Include="Cova.cpp" />
     <ClCompile Include="Cua.cpp" />
     <ClCompile Include="Granota.cpp" />
-    <ClCompile Include="Graphics_Console.cpp" />
     <ClCompile Include="Iterador.cpp" />
     <ClCompile Include="Joc.cpp" />
     <ClCompile Include="lib\animaciones.cpp" />
@@ -120,7 +119,6 @@
     <ClInclude Include="Cova.h" />
     <ClInclude Include="Cua.h" />
     <ClInclude Include="Granota.h" />
-    <ClInclude Include="Graphics_Console.h" />
     <ClInclude Include="Iterador.h" />
     <ClInclude Include="Joc.h" />
     <ClInclude Include="Jugador.h" />

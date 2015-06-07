@@ -1,5 +1,7 @@
 #include "Jugador.h"
-
+/**
+* Constructor per defecte
+*/
 Jugador::Jugador()
 {
 	//cout << "\nConstructor per defecte\n";
@@ -10,6 +12,10 @@ Jugador::Jugador()
 	//cout << "\nJugador creat constructor defecte\n";
 }
 
+/**
+* Constructor per inicialitzar el jugador quan no hi ha fitxer creat.
+* @param int puntuacio
+*/
 Jugador::Jugador(int puntuacio)
 {
 	//cout << "\nConstructor (int puntuacio)\n";
@@ -17,6 +23,9 @@ Jugador::Jugador(int puntuacio)
 	m_puntuacio = puntuacio;
 }
 
+/**
+* Constructor per
+*/
 Jugador::Jugador(string nouNom, int novaPuntuacio)
 {
 	m_nom = nouNom;

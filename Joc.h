@@ -23,14 +23,9 @@
 
 enum ESTAT_ANTERIOR { UP_0, UP_1, DOWN_0, DOWN_1, LEFT_0, LEFT_1, RIGHT_0, RIGHT_1 };
 
-
-
-
-// CONSTANTS PEL COTXE
-//========================================================================
-const int VELOCITAT_COTXE = 2;
-// VIDES DE LA GRANOTA
-
+const int PUNTS_GRANOTA_ES_DINS_COVA = 50;
+const int PUNTS_NIVELL = 75;
+const int PUNTS_BONUS = 25;
 int juga(int Nivell);
 
 
