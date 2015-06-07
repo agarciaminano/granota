@@ -1,5 +1,8 @@
 #include <time.h>
 #include <stdlib.h>
+/* 
+Classe utilitzada per a la generació de numeros aleatoris
+*/
 class Aleatori {
 	
 public:

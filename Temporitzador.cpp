@@ -2,6 +2,10 @@
 Temporitzador::Temporitzador() {
 
 }
+/*
+* Constructor, crea un temprotizador amb el temps en segons especificat 
+* per seconds1(correspon al primer digit) i seconds2(correspon al segon digit)
+*/
 Temporitzador::Temporitzador(Grafic grafics[],int seconds1,int seconds2) {
 	time_t tiempo = time(0);
 	struct tm tstruct;
@@ -17,7 +21,10 @@ Temporitzador::~Temporitzador() {
 
 }
 
-
+/*
+* Actualitza el temporitzador decrementant un segon en cas 
+* de que hagi passat més d'un segon entre la ultima crida a aquest mètode
+*/
 void Temporitzador::actualitzaTemps()
 {
 	time_t tiempo = time(0);
