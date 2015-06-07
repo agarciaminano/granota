@@ -4,12 +4,8 @@
 */
 Jugador::Jugador()
 {
-	//cout << "\nConstructor per defecte\n";
-	
 	m_nom = SENSE_NOM;
 	m_puntuacio = 0;
-	
-	//cout << "\nJugador creat constructor defecte\n";
 }
 
 /**
@@ -24,7 +20,9 @@ Jugador::Jugador(int puntuacio)
 }
 
 /**
-* Constructor per
+* Constructor per afegir un jugador a la taula
+* @param string nouNom
+* @param int novaPuntuacio 
 */
 Jugador::Jugador(string nouNom, int novaPuntuacio)
 {
@@ -36,22 +34,41 @@ Jugador::~Jugador()
 	//cout << "\nObjecte jugador destruit\n";
 }
 
+
+/**
+* Get que retorna el string nom
+* @return string retorna el nom.
+*/
 string Jugador::getNom() const
 {
 	return m_nom;
 }
 
+/**
+* Set que posa un nou nom al jugador
+* @param string nouNom
+* @return void.
+*/
 void Jugador::setNom(string nouNom)
 {
 	m_nom = nouNom;
 }
 
+
+/**
+* Get que retorna la puntuacio del jugador
+* @return int puntuacio.
+*/
 int Jugador::getPuntuacio() const
 {
 	return m_puntuacio;
 }
 
-
+/**
+* Set que posa un nou nom al jugador
+* @param int novaPuntuacio
+* @return void.
+*/
 void Jugador::setPuntuacio(int novaPuntuacio)
 {
 	m_puntuacio = novaPuntuacio;
