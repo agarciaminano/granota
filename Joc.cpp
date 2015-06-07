@@ -76,6 +76,11 @@ int juga(int nivell)
 					puntuacio += 10;
 					pantalla.setBonusPunts();
 				}
+				if (pantalla.getBonusVides() && vides < 3)
+				{
+					vides++;
+					pantalla.setBonusVides();
+				}
 
 			} while ((!Keyboard_GetKeyTrg(KEYBOARD_ESCAPE)) && (!estat.bExit) && !(haMort) && (esDins==false));
 			

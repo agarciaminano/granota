@@ -23,7 +23,7 @@ private:
 	int m_seconds1;
 	int m_seconds2;
 	int m_seconds1Inici;
-	
+	int m_seconds2Inici;
 	bool tempsAcabat;
 	
 };

@@ -16,6 +16,7 @@ Pantalla::Pantalla()
 	m_areaTotal = Area(INICI_X, FI_X, INICI_Y, FI_Y);
 	m_iniciCarrilsY = INICI_Y + m_graficCova.getScaleY();
 	m_bonusPunts = false;
+	m_bonusVides = false;
 	for (int i = 0; i < MAX_VIDES; i++) {
 		m_vides[i] = Granota(m_graficsGranota, INICI_X_VIDES + (m_graficsGranota[0][0].getScaleX()*i), INICI_Y_VIDES);
 	}
@@ -83,8 +84,9 @@ void Pantalla::inicialitzacioNivell(int nivell)
 {
 	m_granotaActual = 0;
 	
-	m_tempo = Temporitzador(m_graficTemp, 7 - nivell, 0); // 60,50 y 40 segons pels nivells 1 2 i 3 respectivament.
-	m_tempoSorpresa = Temporitzador(m_graficTemp, 2 , 0);
+	m_tempo[TEMP_JOC] = Temporitzador(m_graficTemp, 7 - nivell, 0); // 60,50 y 40 segons pels nivells 1 2 i 3 respectivament.
+	m_tempo[TEMP_SORPRESA] = Temporitzador(m_graficTemp, 2 , 0); /// TEMPORITZADOR per els bonus aleatoris cada 20 segons
+	m_tempo[TEMP_COTXES] = Temporitzador(m_graficTemp, 0, 5); // Temporitzador per parar els cotxes (bonus)
 	for (int i = 0; i < MAX_CARRILS; i++) {
 		int velocitat;
 		if (i == CARRIL_3)
@@ -232,12 +234,12 @@ void Pantalla::dibuixa(int puntuacio)
 
 	m_numeros.dibuixa(puntuacio);
 	m_bonus.dibuixa();
-	if (m_tempoSorpresa.haAcabatElTemps())
+	if (m_tempo[TEMP_SORPRESA].haAcabatElTemps())
 	{
 		
 		m_bonus.setX(m_generador.generaAleatori(INICI_X + 10, FI_X-m_graficSorpresa.getScaleX()));
 		m_bonus.setY(m_generador.generaAleatori(m_iniciCarrilsY, FI_Y_CARRILS));
-		m_tempoSorpresa.inicialitza();
+		m_tempo[TEMP_SORPRESA].inicialitza();
 	}
 		
 }
@@ -285,9 +287,9 @@ bool Pantalla::haMortLaGranota()
 		}
 	
 	}
-	bool tempsAcabat = m_tempo.haAcabatElTemps();
+	bool tempsAcabat = m_tempo[TEMP_JOC].haAcabatElTemps();
 	if (tempsAcabat)
-		m_tempo.inicialitza();
+		m_tempo[TEMP_JOC].inicialitza();
 	return colisio || tempsAcabat; // TODO modificar
 }
 
@@ -305,12 +307,23 @@ bool Pantalla::nivellSuperat(){
 * @return void.
 */
 void Pantalla::actualitza(){
-	m_tempo.dibuixa();
-	m_tempo.actualitzaTemps();
-	m_tempoSorpresa.actualitzaTemps();
+	m_tempo[TEMP_JOC].dibuixa();
+	m_tempo[TEMP_JOC].actualitzaTemps();
+	m_tempo[TEMP_SORPRESA].actualitzaTemps();
 	m_granota[m_granotaActual].actualitzaEstat();
 	if (comprovaColisio(m_granota[m_granotaActual].getAreaOcupada(), m_bonus.getAreaOcupada()))
 		colisioBonus();
+	if (m_carrils[0].getTempsAturat())
+	{
+		m_tempo[TEMP_COTXES].actualitzaTemps();
+		if (m_tempo[TEMP_COTXES].haAcabatElTemps())
+		{
+			for (int i = 0; i < MAX_CARRILS; i++)   //// Comprovem si ha pasat el temps que els vehicles han d'estar aturats i els desaturem
+				m_carrils[i].setTempsAturat(false);
+			m_tempo[TEMP_COTXES].inicialitza();
+		}
+
+	}
 	
 }
 
@@ -319,8 +332,24 @@ bool Pantalla::comprovaColisio(Area a1, Area a2)
 	return a1.solapa(a2);
 }
 
+/* Selecciona un bonus entre els disponibles al agafar el objecte bonus del joc.
+*/
 void Pantalla::colisioBonus() {
-	m_bonusPunts = true;
+	
+	switch (m_generador.generaAleatori(0, MAX_BONUS))
+	{
+	case 0: m_bonusPunts = true;
+		break;
+	case 1: m_bonusVides = true;
+		break;
+	case 2:
+		for (int i = 0; i < MAX_CARRILS; i++) {
+			m_carrils[i].setTempsAturat(true);
+		}
+		break;
+	default:
+		break;
+	}
 	m_bonus.setX(0);
 	m_bonus.setY(0);
 }
@@ -329,6 +358,12 @@ bool Pantalla::getBonusPunts() {
 	return m_bonusPunts;
 }
 
+bool Pantalla::getBonusVides() {
+	return m_bonusVides;
+}
+void Pantalla::setBonusVides() {
+	m_bonusVides = false;
+}
 void Pantalla::setBonusPunts() {
 	m_bonusPunts = false;
 }

@@ -15,8 +15,6 @@ const int CARRIL_5 = 5;
 class Carril 
 {
 	
-	
-	
 	private:
 		
 		bool m_orientation;
@@ -25,6 +23,7 @@ class Carril
 		int m_freqAparicio;
 		int m_velocitat;
 		int m_nivell;
+		bool m_tempsAturat;
 		Aleatori m_generador;
 		void mouIniciCarril(Vehicle& v);
 		Grafic m_tipusVehicle;
@@ -42,5 +41,7 @@ class Carril
 		void mouVehicle();
 		void dibuixaVehicle();
 		void haArribatAlFinal();
+		void setTempsAturat(bool b);
+		bool getTempsAturat();
 		
 };

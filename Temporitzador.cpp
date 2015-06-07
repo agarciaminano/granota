@@ -6,6 +6,7 @@ Temporitzador::Temporitzador(Grafic grafics[],int seconds1,int seconds2) {
 	time_t tiempo = time(0);
 	struct tm tstruct;
 	m_seconds1Inici = seconds1;
+	m_seconds2Inici = seconds2;
 	tstruct = *localtime(&tiempo);
 	m_tInici = tstruct.tm_sec;
 	for (int i = 0; i < MAX_TEMP; i++)
@@ -49,7 +50,7 @@ void Temporitzador::dibuixa() {
 }
 void Temporitzador::inicialitza() {
 	m_seconds1 = m_seconds1Inici;
-	m_seconds2 = 0;
+	m_seconds2 = m_seconds2Inici;
 	tempsAcabat = false;
 }
 

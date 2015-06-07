@@ -10,6 +10,7 @@ Carril::Carril(bool orientacio, Grafic vehicle, int posY,int vel_carril,int nive
 	m_orientation = orientacio;
 	m_tipusVehicle = vehicle;
 	m_velocitat = vel_carril;
+	m_tempsAturat = false;
 	m_nivell = nivell;
 	Vehicle v = Vehicle(vehicle, vel_carril * nivell);
 	m_generador = Aleatori();
@@ -78,11 +79,14 @@ void Carril::actualitzaEstat() {
 
 
 void Carril::mouVehicle() {
-	Iterador it = m_vehicles.getInici();
-	while (!it.esNul())
+	if (!m_tempsAturat)
 	{
-		it.getElement().mou(!m_orientation);
-		it.seguent();
+		Iterador it = m_vehicles.getInici();
+		while (!it.esNul())
+		{
+			it.getElement().mou(!m_orientation);
+			it.seguent();
+		}
 	}
 }
 Cua Carril::getVehicle()
@@ -91,3 +95,10 @@ Cua Carril::getVehicle()
 	return m_vehicles;
 }
 
+bool Carril::getTempsAturat() {
+	return m_tempsAturat;
+}
+
+void Carril::setTempsAturat(bool b) {
+	m_tempsAturat = b;
+}
