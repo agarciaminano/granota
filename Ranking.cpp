@@ -7,6 +7,9 @@
 Ranking::Ranking()
 {
 	//cout << "\n Creacio del ranking. \n";
+	if (!carregarRanking())
+		inicialitza();
+	
 }
 /**
 * Destructor
@@ -48,7 +51,7 @@ void Ranking::mostrar() const
 	for (int i = 0; i < MAX_JUGADORS; i++)
 	{
 		//cout << "\n-------------------------------------------\n";
-		cout << "\n"<< m_taula[i].getNom() << "                             " << m_taula[i].getPuntuacio() << "\n";
+		cout << "\n"<< i+1 << ".- " << m_taula[i].getNom() << "                             " << m_taula[i].getPuntuacio() << "\n";
 		//cout << "\n-------------------------------------------\n";\n
 
 	}
@@ -155,7 +158,38 @@ int Ranking::castPuntuacio(string puntuacioText)
 	return puntuacioNumerica;
 }
 
+string Ranking::castPuntuacio(int puntuacio)
+{
+	string puntuacioText;
 
+	if (puntuacio < 10)
+	{
+		puntuacioText.push_back('0');
+		puntuacioText.push_back('0');
+		puntuacioText.push_back(puntuacio + CARACTER_ZERO);
+	}
+	else
+		if (puntuacio < 100)
+		{
+			int digit2 = puntuacio / 10;
+			int digit3 = puntuacio % (digit2 * 10);
+			puntuacioText.push_back('0');
+			puntuacioText.push_back(digit2 + CARACTER_ZERO);
+			puntuacioText.push_back(digit3 + CARACTER_ZERO);
+		}
+		else
+		{
+			int digit1 = puntuacio / 100;
+			int digit2 = (puntuacio % (digit1 * 100)) / 10;
+			int digit3 = (puntuacio % (digit1 * 100 + (digit2 * 10)));
+
+			puntuacioText.push_back(digit1 + CARACTER_ZERO);
+			puntuacioText.push_back(digit2 + CARACTER_ZERO);
+			puntuacioText.push_back(digit3 + CARACTER_ZERO);
+		}
+	return puntuacioText;
+}
+	
 
 /***
 * Guarda tots els jugadors a un fitxer de text.
@@ -170,7 +204,7 @@ void Ranking::guardarRanking()
 	{
 				
 		for (int i = 0; i < MAX_JUGADORS; i++)
-			fitxer << m_taula[i].getNom() << " " << m_taula[i].getPuntuacio() << "\n";
+			fitxer << m_taula[i].getNom() << " " << castPuntuacio(m_taula[i].getPuntuacio()) << "\n";
 		fitxer.close();
 	
 	}
@@ -183,40 +217,43 @@ void Ranking::guardarRanking()
 * Funcio que a partir d'un fitxer, carrega els jugadors, els prepara per ficar-los a la taula i posteriorment els fica.
 *
 */
-void Ranking::carregarRanking()
+bool Ranking::carregarRanking()
 {
 	ifstream fitxer;
-
+	bool carregat = false;
 	string nomJugador;
 	string puntuacioText;
+
 	fitxer.open(RUTA_FITXER);
 	if (fitxer.is_open())
 	{
 		//Comprovem que el fitxer no estigui buit.
-		fitxer.seekg(0, ios::end);
-		if (fitxer.tellg() > 0) 
-		{
+		//fitxer.seekg(0, ios::end);
+		//if (fitxer.tellg() > 0) 
+		//{
 			fitxer >> nomJugador >> puntuacioText;
 			int puntuacio;
-			while (!fitxer.eof())
+			int i = 0;
+			while (!fitxer.eof() && i<MAX_JUGADORS)
 			{
 				puntuacio=castPuntuacio(puntuacioText);
 				Jugador nouJugador = Jugador(nomJugador, puntuacio);
-				afegirJugador(nouJugador);
+				m_taula[i] = nouJugador;
 				fitxer >> nomJugador >> puntuacioText;
+				i++;
 			}
-		}
-		else
-		{
-			//inicialitza();
-		}
+			carregat = true;
+		//}
+		
 		
 	}
 	else
 	{
 		cout << "\n El fitxer (" << RUTA_FITXER << ") no s'ha pogut obrir.\n";
-		//inicialitza();
+		carregat = false;
 	}
+
+	return carregat;
 	
 }
 
