@@ -2,8 +2,8 @@
 
 Bonus::Bonus(Grafic grafic){
 	m_grafic = grafic;
-	m_posX = 0;
-	m_posY = 0;
+	m_posX = -100;
+	m_posY = -100; // Posició per defecte
 }
 Bonus::Bonus() {
 
@@ -18,7 +18,7 @@ void Bonus::setY(int y){
 	m_posY = y;
 }
 void Bonus::dibuixa(){
-	if (m_posX != 0 && m_posY != 0)
+	if (m_posX != -100 && m_posY != -100)
 		m_grafic.dibuixa(m_posX, m_posY);
 }
 Area Bonus::getAreaOcupada()

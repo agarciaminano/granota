@@ -350,8 +350,8 @@ void Pantalla::colisioBonus() {
 	default:
 		break;
 	}
-	m_bonus.setX(0);
-	m_bonus.setY(0);
+	m_bonus.setX(-100);
+	m_bonus.setY(-100);
 }
 
 bool Pantalla::getBonusPunts() {
