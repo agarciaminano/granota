@@ -2,7 +2,7 @@
 #include <string>
 
 using namespace std;
-
+const char SENSE_NOM[] = "----------";
 class Jugador
 {
 public:

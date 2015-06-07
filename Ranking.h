@@ -36,12 +36,11 @@ private:
 	Jugador m_taula[MAX_JUGADORS];
 	
 	/*Metodes privats*/
-	string llegirNom();
-	bool teclaValida(char tecla);
 	int castPuntuacio(string puntuacioText);
+	string castPuntuacio(int puntuacio);
 	
 	void inicialitza();
-	void carregarRanking();
+	bool carregarRanking();
 	void guardarRanking();
 	
 	//Funcionalitat per afegir un jugador al ranking.
@@ -50,10 +49,9 @@ private:
 	void desplacaArray(int posicio);
 	void emplenaPosicioArray(int posicio,Jugador jugadorNou);
 
-	/**************************************************/
 
 	
-
+	////////////////////////////////////////////////////////////
 
 
 

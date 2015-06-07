@@ -4,7 +4,7 @@ Jugador::Jugador()
 {
 	//cout << "\nConstructor per defecte\n";
 	
-	m_nom = "";
+	m_nom = SENSE_NOM;
 	m_puntuacio = 0;
 	
 	//cout << "\nJugador creat constructor defecte\n";
@@ -13,7 +13,7 @@ Jugador::Jugador()
 Jugador::Jugador(int puntuacio)
 {
 	//cout << "\nConstructor (int puntuacio)\n";
-	m_nom = "";
+	m_nom = SENSE_NOM;
 	m_puntuacio = puntuacio;
 }
 

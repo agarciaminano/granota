@@ -37,15 +37,14 @@ Puntuacio::~Puntuacio()
 void Puntuacio::dibuixa(int puntuacio)
 {
 
-
-	if(puntuacio>=100)
+	if(puntuacio<10)
 	{
+		m_digit1=0;
+		m_digit2=0;
+		m_digit3=puntuacio % 10;
 		
-		m_digit1=puntuacio / 100;
-		m_digit2=(puntuacio % (m_digit1 * 100)) / 10;
-		m_digit3=(puntuacio % (m_digit1 * 100 + (m_digit2 * 10)));
 	}
-	else if (puntuacio>10)
+	else if (puntuacio<100)
 	{
 		m_digit1=0;
 		m_digit2=puntuacio/10;
@@ -53,10 +52,12 @@ void Puntuacio::dibuixa(int puntuacio)
 	}
 	else
 	{
-		m_digit1=0;
-		m_digit2=0;
-		m_digit3=puntuacio % 10;
+		m_digit1=puntuacio / 100;
+		m_digit2=(puntuacio % (m_digit1 * 100)) / 10;
+		m_digit3=(puntuacio % (m_digit1 * 100 + (m_digit2 * 10)));
 	}
+
+
 
 	m_grafics[m_digit1].dibuixa(400, 480);
 	m_grafics[m_digit2].dibuixa(430, 480);
