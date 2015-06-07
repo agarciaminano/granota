@@ -87,8 +87,8 @@
     <ClCompile Include="Carril.cpp" />
     <ClCompile Include="Cova.cpp" />
     <ClCompile Include="Cua.cpp" />
-    <ClCompile Include="GestioResultats.cpp" />
     <ClCompile Include="Granota.cpp" />
+    <ClCompile Include="Graphics_Console.cpp" />
     <ClCompile Include="Iterador.cpp" />
     <ClCompile Include="Joc.cpp" />
     <ClCompile Include="lib\animaciones.cpp" />
@@ -107,6 +107,8 @@
     <ClCompile Include="Pantalla.cpp" />
     <ClCompile Include="Principal.cpp" />
     <ClCompile Include="Puntuacio.cpp" />
+    <ClCompile Include="Ranking.cpp" />
+    <ClCompile Include="Jugador.cpp" />
     <ClCompile Include="Temporitzador.cpp" />
     <ClCompile Include="Vehicle.cpp" />
   </ItemGroup>
@@ -117,10 +119,11 @@
     <ClInclude Include="Carril.h" />
     <ClInclude Include="Cova.h" />
     <ClInclude Include="Cua.h" />
-    <ClInclude Include="GestioResultats.h" />
     <ClInclude Include="Granota.h" />
+    <ClInclude Include="Graphics_Console.h" />
     <ClInclude Include="Iterador.h" />
     <ClInclude Include="Joc.h" />
+    <ClInclude Include="Jugador.h" />
     <ClInclude Include="lib\animaciones.h" />
     <ClInclude Include="lib\debug.h" />
     <ClInclude Include="lib\event.h" />
@@ -138,6 +141,7 @@
     <ClInclude Include="Node.h" />
     <ClInclude Include="Pantalla.h" />
     <ClInclude Include="Puntuacio.h" />
+    <ClInclude Include="Ranking.h" />
     <ClInclude Include="Temporitzador.h" />
     <ClInclude Include="Vehicle.h" />
   </ItemGroup>

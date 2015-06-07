@@ -5,16 +5,16 @@
  */
 void mostraMenuPrincipal()
 {
-	
-
-	printf("------ Menu Principal ------ \n");
-	printf("\n");
-	printf("1.- Jugar \n");
-	printf("2.- Configurar \n");
-	printf("3.- Millors Puntuacions \n");
-	printf("4.- Sortir \n");
-	printf("\n");
-	printf("---------------------------- \n");
+	cout << "\n\n";
+	cout << "------ Menu Principal ------ \n";
+	cout << "\n";
+	cout << "1.- Jugar \n";
+	cout << "2.- Configurar \n";
+	cout << "3.- Millors Puntuacions \n";
+	cout << "4.- Sortir \n";
+	cout << "\n";
+	cout << "---------------------------- \n";
+	cout << "Introdueix opcio menu: ";
 
 }
 
@@ -23,13 +23,12 @@ void mostraMenuPrincipal()
  */
 void mostraMenuNivellDificultat()
 {
-	
-
-	printf("------ Menu Dificultat ------\n");
-	printf("\n");
-	printf("1.- Principiant\n");
-	printf("2.- Mitja\n");
-	printf("3.- Expert\n");
-	printf("\n");
-	printf("----------------------------\n");
+	cout << "\n\n";
+	cout << "------ Menu Dificultat ------\n";
+	cout << "\n";
+	cout << "1.- Principiant\n";
+	cout << "2.- Mitja\n";
+	cout << "3.- Expert\n";
+	cout << "\n";
+	cout << "----------------------------\n";
 }
