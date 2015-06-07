@@ -17,8 +17,8 @@ Temporitzador::~Temporitzador() {
 }
 
 
-void Temporitzador::pintaTemps() {
-	dibuixa();
+void Temporitzador::actualitzaTemps()
+{
 	time_t tiempo = time(0);
 	struct tm tstruct;
 	tstruct = *localtime(&tiempo);
@@ -30,13 +30,13 @@ void Temporitzador::pintaTemps() {
 			m_seconds1--;
 			m_seconds2 = 9;
 			if (m_seconds1 < 0)
-				
-				tempsAcabat = true;
-			
-		}
 
-		
-	}
+				tempsAcabat = true;
+
+		}
+}
+
+
 	
 
 	

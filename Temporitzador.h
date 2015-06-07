@@ -13,16 +13,17 @@ public:
 	Temporitzador();
 	Temporitzador(Grafic grafics[],int seconds1, int seconds2);
 	~Temporitzador();
-	void pintaTemps();
 	bool haAcabatElTemps();
 	void inicialitza();
+	void actualitzaTemps();
+	void dibuixa();
 private:
 	int m_tInici;
 	Grafic m_grafics[MAX_TEMP];
 	int m_seconds1;
 	int m_seconds2;
 	int m_seconds1Inici;
-	void dibuixa();
+	
 	bool tempsAcabat;
 	
 };

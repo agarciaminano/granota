@@ -83,6 +83,7 @@
   <ItemGroup>
     <ClCompile Include="Aleatori.cpp" />
     <ClCompile Include="Area.cpp" />
+    <ClCompile Include="Bonus.cpp" />
     <ClCompile Include="Carril.cpp" />
     <ClCompile Include="Cova.cpp" />
     <ClCompile Include="Cua.cpp" />
@@ -112,6 +113,7 @@
   <ItemGroup>
     <ClInclude Include="Aleatori.h" />
     <ClInclude Include="Area.h" />
+    <ClInclude Include="Bonus.h" />
     <ClInclude Include="Carril.h" />
     <ClInclude Include="Cova.h" />
     <ClInclude Include="Cua.h" />

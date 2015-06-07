@@ -5,6 +5,7 @@
 #include "Granota.h"
 #include "lib\Grafic.h"
 #include "Puntuacio.h"
+#include "Bonus.h"
 #include "Temporitzador.h"
 
 // Inici del taulell respecte la cantonada superior esquerre
@@ -50,7 +51,7 @@ private:
 	Area m_areaTotal;
 	Grafic m_graficFons;
 	Grafic m_graficTemp[MAX_TEMP];
-	
+	Grafic m_graficSorpresa;
 	//Coves
 	Grafic m_graficCova;
 	Cova m_cova[MAX_COVES];
@@ -59,8 +60,11 @@ private:
 	Grafic m_graficsGranota[MAX_ESTATS][MAX_GRAFICS];
 	Granota m_granota[MAX_COVES];
 	Granota m_vides[MAX_VIDES];
+	Bonus m_bonus;
 	int m_granotaActual;
 	Temporitzador m_tempo;
+	Temporitzador m_tempoSorpresa;
+	Aleatori m_generador;
 
 	Puntuacio m_numeros;
 

@@ -15,14 +15,7 @@ Carril::Carril(bool orientacio, Grafic vehicle, int posY,int vel_carril,int nive
 	m_generador = Aleatori();
 	m_freqAparicio = 1000 - 250*(nivell);
 	m_vehicles = Cua();
-	
-	if (orientacio == CARRIL_ESQUERRA)
-	{
-		mouIniciCarril(v);
-	}
-	else
-		mouIniciCarril(v);
-	
+	mouIniciCarril(v);
 	m_vehicles.afegeix(v);
 	
 }
@@ -41,9 +34,7 @@ int Carril::getY() {
 
 void Carril::haArribatAlFinal()
 {
-	Vehicle v = m_vehicles.treu();
-	
-	
+	Vehicle v = m_vehicles.treu();	
 	if (m_vehicles.esBuida()){
 		mouIniciCarril (v);
 		m_vehicles.afegeix(v);

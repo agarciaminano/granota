@@ -10,7 +10,8 @@ Pantalla::Pantalla()
 	m_numeros = Puntuacio();
 	creaGrafics();
 	creaCoves();
-	
+	m_generador = Aleatori();
+	m_bonus = Bonus(m_graficSorpresa);
 	// Inicialitzem l'area total de la pantalla, així com l'espai pels carrils, el número de carrils i instanciem els objectes granota i cova.
 	m_areaTotal = Area(INICI_X, FI_X, INICI_Y, FI_Y);
 	m_iniciCarrilsY = INICI_Y + m_graficCova.getScaleY();
@@ -61,6 +62,7 @@ void Pantalla::creaGrafics() {
 	m_graficsGranota[1][2].crea("Program/data/GraficsGranota/Granota_Avall_2.png");
 	m_graficsGranota[0][3].crea("Program/data/GraficsGranota/Granota_Esquerra_1.png");
 	m_graficsGranota[1][3].crea("Program/data/GraficsGranota/Granota_Esquerra_2.png");
+	m_graficSorpresa.crea("Program/data/GraficsGranota/sorpresa.png");
 	m_graficTemp[0].crea("Program/data/numeros/numero0000.png");
 	m_graficTemp[1].crea("Program/data/numeros/numero0001.png");
 	m_graficTemp[2].crea("Program/data/numeros/numero0002.png");
@@ -71,6 +73,7 @@ void Pantalla::creaGrafics() {
 	m_graficTemp[7].crea("Program/data/numeros/numero0007.png");
 	m_graficTemp[8].crea("Program/data/numeros/numero0008.png");
 	m_graficTemp[9].crea("Program/data/numeros/numero0009.png");
+
 }
 /**
  * Inicia la pantalla instanciant l'objecte vehicle i colocant la granota i el vehicle a la posició inicial.
@@ -81,6 +84,7 @@ void Pantalla::inicialitzacioNivell(int nivell)
 	m_granotaActual = 0;
 	
 	m_tempo = Temporitzador(m_graficTemp, 7 - nivell, 0);
+	m_tempoSorpresa = Temporitzador(m_graficTemp, 2 , 0);
 	for (int i = 0; i < MAX_CARRILS; i++) {
 		int velocitat;
 		if (i == 3)
@@ -227,7 +231,14 @@ void Pantalla::dibuixa(int puntuacio)
 		m_granota[i].dibuixa();
 
 	m_numeros.dibuixa(puntuacio);
-	
+	m_bonus.dibuixa();
+	if (m_tempoSorpresa.haAcabatElTemps())
+	{
+		
+		m_bonus.setX(m_generador.generaAleatori(INICI_X + 10, FI_X));
+		m_bonus.setY(m_generador.generaAleatori(m_iniciCarrilsY, FI_Y));
+		m_tempoSorpresa.inicialitza();
+	}
 		
 }
 
@@ -277,7 +288,7 @@ bool Pantalla::haMortLaGranota()
 	bool tempsAcabat = m_tempo.haAcabatElTemps();
 	if (tempsAcabat)
 		m_tempo.inicialitza();
-	return colisio = false|| tempsAcabat; // TODO modificar
+	return colisio || tempsAcabat; // TODO modificar
 }
 
 /**
@@ -293,7 +304,9 @@ bool Pantalla::nivellSuperat(){
 * @return void.
 */
 void Pantalla::actualitza(){
-	m_tempo.pintaTemps();
+	m_tempo.dibuixa();
+	m_tempo.actualitzaTemps();
+	m_tempoSorpresa.actualitzaTemps();
 	m_granota[m_granotaActual].actualitzaEstat();
 	
 }
