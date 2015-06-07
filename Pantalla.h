@@ -27,8 +27,8 @@ const int TEMP_JOC = 0;
 const int TEMP_SORPRESA = 1;
 const int TEMP_COTXES = 2;
 const int MAX_BONUS = 3;
-
-
+const int MULT_ESPAI_CARRILS = 60;
+const int NUM_ORIENTACIONS = 2;
 const int AMUNT = 0;
 const int AVALL = 1;
 const int DRETA = 2;

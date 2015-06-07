@@ -83,7 +83,6 @@ void Pantalla::creaGrafics() {
 void Pantalla::inicialitzacioNivell(int nivell)
 {
 	m_granotaActual = 0;
-	
 	m_tempo[TEMP_JOC] = Temporitzador(m_graficTemp, 7 - nivell, 0); // 60,50 y 40 segons pels nivells 1 2 i 3 respectivament.
 	m_tempo[TEMP_SORPRESA] = Temporitzador(m_graficTemp, 2 , 0); /// TEMPORITZADOR per els bonus aleatoris cada 20 segons
 	m_tempo[TEMP_COTXES] = Temporitzador(m_graficTemp, 0, 5); // Temporitzador per parar els cotxes (bonus)
@@ -96,7 +95,7 @@ void Pantalla::inicialitzacioNivell(int nivell)
 		else 
 			velocitat = VELOCITAT_COTXES;
 		m_cova[i].setOcupada(false);
-		m_carrils[i] = Carril(i % 2, m_graficVehicle[i], m_iniciCarrilsY + i * 60, velocitat,nivell);
+		m_carrils[i] = Carril(i % NUM_ORIENTACIONS, m_graficVehicle[i], m_iniciCarrilsY + i * MULT_ESPAI_CARRILS, velocitat,nivell);
 	
 			
 	}
@@ -130,16 +129,6 @@ void Pantalla::creaCoves()
 		m_granota[i] = Granota(m_graficsGranota, (FI_X - INICI_X - m_graficsGranota[0][0].getScaleX()) / 2, INICI_Y_GRANOTA);
 	}
 }
-/**
- * Comprova si la granota actual es troba dins la cova.
- * @param area Area a comprovar si es troba dins una cova.
- * @return true si l'àrea es troba dins la cova i false si no s'hi troba. 
- */
-
-/**
-*Comprova si la granota esta en algunes de les coves no ocupades.
-*
-*/
 
 
 /**
@@ -167,7 +156,7 @@ bool Pantalla::esGranotaDinsCova()
 }
 
 /**
-*
+* Comprova si la granota está ubicada dins de totes les coves per pasar al següent nivell de joc.
 */
 bool Pantalla::esGranotaDinsCoves()
 {
@@ -205,6 +194,10 @@ bool Pantalla::espaiPermes(Area area)
 
 }
 
+/**
+Comprova si el vehicle pot continuar avançant
+@return true si pot, false en cas contrari.
+*/
 bool Pantalla::espaiPermesVehicles(Area area)
 {
 	return ((m_areaTotal.pertany(area.getMaxX(), area.getMinY()))
@@ -234,15 +227,19 @@ void Pantalla::dibuixa(int puntuacio)
 
 	m_numeros.dibuixa(puntuacio);
 	m_bonus.dibuixa();
-	if (m_tempo[TEMP_SORPRESA].haAcabatElTemps())
+	if (m_tempo[TEMP_SORPRESA].haAcabatElTemps())  //// Si el temps del temporitzador pel bonus a acabat
 	{
-		
+		/// Posem el objecte bonus en una posició de la pantalla visible i tornem a inicialitzar el compte enrere
 		m_bonus.setX(m_generador.generaAleatori(INICI_X + 10, FI_X-m_graficSorpresa.getScaleX()));
 		m_bonus.setY(m_generador.generaAleatori(m_iniciCarrilsY, FI_Y_CARRILS));
 		m_tempo[TEMP_SORPRESA].inicialitza();
 	}
 		
 }
+
+/**
+Pinta en pantalla el numero de vides restants
+*/
 
 void Pantalla::pintaVides(int vides)
 {
@@ -252,7 +249,7 @@ void Pantalla::pintaVides(int vides)
 
 
 /**
- * Mou el vehicle.
+ * Mou tots els vehicles de tots els carrils
  */
 void Pantalla::mouVehicle()
 {
@@ -326,7 +323,7 @@ void Pantalla::actualitza(){
 	}
 	
 }
-
+/*Comprova si ha hagut colisió entre dues arees*/
 bool Pantalla::comprovaColisio(Area a1, Area a2)
 {
 	return a1.solapa(a2);
@@ -336,15 +333,15 @@ bool Pantalla::comprovaColisio(Area a1, Area a2)
 */
 void Pantalla::colisioBonus() {
 	
-	switch (m_generador.generaAleatori(0, MAX_BONUS))
+	switch (m_generador.generaAleatori(0, MAX_BONUS)) // aleatori per seleccionar el bonus
 	{
-	case 0: m_bonusPunts = true;
+	case 0: m_bonusPunts = true; // Obtenim 10 punts
 		break;
-	case 1: m_bonusVides = true;
+	case 1: m_bonusVides = true; // Obtenim una vida extra
 		break;
 	case 2:
 		for (int i = 0; i < MAX_CARRILS; i++) {
-			m_carrils[i].setTempsAturat(true);
+			m_carrils[i].setTempsAturat(true); ///ATURA EL TEMPS 
 		}
 		break;
 	default:
@@ -378,6 +375,7 @@ void Pantalla::mouGranota(int direccio)
 	Area novaArea;
 	switch (direccio)
 	{
+		/// Creem el nou area on estarà situada la granota
 	case AMUNT:{
 
 		x_min = m_granota[m_granotaActual].getAreaOcupada().getMinX();
